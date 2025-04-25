@@ -75,4 +75,18 @@ extension AppStateManager {
 
         apps[index] = app
     }
+    
+    var downloadedApps: [AppItem] {
+        apps.filter { $0.state == .open }
+    }
+
+    func removeAppFromDownloadedList(appID: String) {
+        guard let index = apps.firstIndex(where: { $0.id == appID }) else { return }
+
+        var app = apps[index]
+        app.state = .retry
+        app.remainingTime = 30
+
+        apps[index] = app
+    }
 }
