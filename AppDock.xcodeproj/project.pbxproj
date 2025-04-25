@@ -13,6 +13,8 @@
 		3E929C9E2DBB609F00C33558 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E929C982DBB609F00C33558 /* Assets.xcassets */; };
 		3E929CEC2DBB6CC300C33558 /* AppDownloadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929CEB2DBB6CC300C33558 /* AppDownloadState.swift */; };
 		3E929CF02DBB6D4500C33558 /* AppItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929CEF2DBB6D4500C33558 /* AppItem.swift */; };
+		3E929CF32DBB709200C33558 /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929CF22DBB709200C33558 /* AppStateManager.swift */; };
+		3E929CF52DBB71B900C33558 /* DownloadTimerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929CF42DBB71B900C33558 /* DownloadTimerController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		3E929C992DBB609F00C33558 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3E929CEB2DBB6CC300C33558 /* AppDownloadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDownloadState.swift; sourceTree = "<group>"; };
 		3E929CEF2DBB6D4500C33558 /* AppItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppItem.swift; sourceTree = "<group>"; };
+		3E929CF22DBB709200C33558 /* AppStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
+		3E929CF42DBB71B900C33558 /* DownloadTimerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTimerController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,9 +84,6 @@
 				3E929C9F2DBB60BA00C33558 /* Domain */,
 				3E929CA02DBB60BF00C33558 /* Core */,
 				3E929CA12DBB60C400C33558 /* Shared */,
-				3E929CBB2DBB62C800C33558 /* Components */,
-				3E929CBC2DBB62CD00C33558 /* Extensions */,
-				3E929CBD2DBB62D000C33558 /* Utilities */,
 				3E929C962DBB609F00C33558 /* Supporting */,
 				3E929C992DBB609F00C33558 /* ContentView.swift */,
 			);
@@ -111,6 +112,10 @@
 		3E929CA12DBB60C400C33558 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				3E929CF12DBB708300C33558 /* State */,
+				3E929CBB2DBB62C800C33558 /* Components */,
+				3E929CBC2DBB62CD00C33558 /* Extensions */,
+				3E929CBD2DBB62D000C33558 /* Utilities */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -282,6 +287,7 @@
 		3E929CB82DBB62AD00C33558 /* Download */ = {
 			isa = PBXGroup;
 			children = (
+				3E929CF42DBB71B900C33558 /* DownloadTimerController.swift */,
 			);
 			path = Download;
 			sourceTree = "<group>";
@@ -319,6 +325,14 @@
 			children = (
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		3E929CF12DBB708300C33558 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				3E929CF22DBB709200C33558 /* AppStateManager.swift */,
+			);
+			path = State;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -396,8 +410,10 @@
 			files = (
 				3E929CF02DBB6D4500C33558 /* AppItem.swift in Sources */,
 				3E929CEC2DBB6CC300C33558 /* AppDownloadState.swift in Sources */,
+				3E929CF52DBB71B900C33558 /* DownloadTimerController.swift in Sources */,
 				3E929C9B2DBB609F00C33558 /* AppDockApp.swift in Sources */,
 				3E929C9C2DBB609F00C33558 /* ContentView.swift in Sources */,
+				3E929CF32DBB709200C33558 /* AppStateManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
