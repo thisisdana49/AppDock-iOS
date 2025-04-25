@@ -16,6 +16,9 @@
 		3E929CF32DBB709200C33558 /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929CF22DBB709200C33558 /* AppStateManager.swift */; };
 		3E929CF52DBB71B900C33558 /* DownloadTimerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929CF42DBB71B900C33558 /* DownloadTimerController.swift */; };
 		3E929CF72DBB777200C33558 /* DownloadTimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929CF62DBB777100C33558 /* DownloadTimerManager.swift */; };
+		3E929CF92DBB79BA00C33558 /* AppDownloadAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929CF82DBB79BA00C33558 /* AppDownloadAction.swift */; };
+		3E929CFB2DBB7A4700C33558 /* AppDownloadUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929CFA2DBB7A4700C33558 /* AppDownloadUseCase.swift */; };
+		3E929CFD2DBB7A6000C33558 /* DefaultAppDownloadUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929CFC2DBB7A6000C33558 /* DefaultAppDownloadUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +32,9 @@
 		3E929CF22DBB709200C33558 /* AppStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
 		3E929CF42DBB71B900C33558 /* DownloadTimerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTimerController.swift; sourceTree = "<group>"; };
 		3E929CF62DBB777100C33558 /* DownloadTimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTimerManager.swift; sourceTree = "<group>"; };
+		3E929CF82DBB79BA00C33558 /* AppDownloadAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDownloadAction.swift; sourceTree = "<group>"; };
+		3E929CFA2DBB7A4700C33558 /* AppDownloadUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDownloadUseCase.swift; sourceTree = "<group>"; };
+		3E929CFC2DBB7A6000C33558 /* DefaultAppDownloadUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAppDownloadUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,8 +263,9 @@
 		3E929CB42DBB628B00C33558 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				3E929CEB2DBB6CC300C33558 /* AppDownloadState.swift */,
 				3E929CEF2DBB6D4500C33558 /* AppItem.swift */,
+				3E929CEB2DBB6CC300C33558 /* AppDownloadState.swift */,
+				3E929CF82DBB79BA00C33558 /* AppDownloadAction.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -275,6 +282,7 @@
 		3E929CB62DBB629400C33558 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				3E929CFA2DBB7A4700C33558 /* AppDownloadUseCase.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -282,6 +290,7 @@
 		3E929CB72DBB629900C33558 /* Implementation */ = {
 			isa = PBXGroup;
 			children = (
+				3E929CFC2DBB7A6000C33558 /* DefaultAppDownloadUseCase.swift */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -412,12 +421,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E929CF02DBB6D4500C33558 /* AppItem.swift in Sources */,
+				3E929CF92DBB79BA00C33558 /* AppDownloadAction.swift in Sources */,
 				3E929CEC2DBB6CC300C33558 /* AppDownloadState.swift in Sources */,
 				3E929CF52DBB71B900C33558 /* DownloadTimerController.swift in Sources */,
 				3E929C9B2DBB609F00C33558 /* AppDockApp.swift in Sources */,
+				3E929CFD2DBB7A6000C33558 /* DefaultAppDownloadUseCase.swift in Sources */,
 				3E929C9C2DBB609F00C33558 /* ContentView.swift in Sources */,
 				3E929CF72DBB777200C33558 /* DownloadTimerManager.swift in Sources */,
 				3E929CF32DBB709200C33558 /* AppStateManager.swift in Sources */,
+				3E929CFB2DBB7A4700C33558 /* AppDownloadUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
