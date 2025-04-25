@@ -16,3 +16,17 @@ struct AppItem: Identifiable, Equatable, Codable {
     var state: AppDownloadState
     var remainingTime: TimeInterval
 }
+
+extension AppItem {
+    func copyWith(state: AppDownloadState? = nil,
+                  remainingTime: TimeInterval? = nil) -> AppItem {
+        AppItem(
+            id: self.id,
+            name: self.name,
+            developer: self.developer,
+            iconURL: self.iconURL,
+            state: state ?? self.state,
+            remainingTime: remainingTime ?? self.remainingTime
+        )
+    }
+}

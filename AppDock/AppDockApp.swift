@@ -9,6 +9,9 @@ import SwiftUI
 
 @main
 struct AppDockApp: App {
+    @Environment(\.scenePhase) private var scenePhase
+    @StateObject private var appState = AppStateManager.shared
+
     var body: some Scene {
         WindowGroup {
             TabView {
@@ -18,7 +21,17 @@ struct AppDockApp: App {
                 AppListView()
                     .tabItem { Label("내 앱", systemImage: "square.stack") }
             }
-            .environmentObject(AppStateManager.shared)
+            .environmentObject(appState)
+        }
+        .onChange(of: scenePhase) { newPhase in
+            switch newPhase {
+            case .background:
+                appState.markBackgroundTimestamp()
+            case .active:
+                appState.syncTimersOnResume()
+            default:
+                break
+            }
         }
     }
 }

@@ -42,6 +42,35 @@ final class AppStateManager: ObservableObject {
 }
 
 extension AppStateManager {
+    private var backgroundTimestampKey: String { "background_timestamp" }
+
+    func markBackgroundTimestamp() {
+        let now = Date()
+        UserDefaults.standard.set(now, forKey: backgroundTimestampKey)
+    }
+
+    func syncTimersOnResume() {
+        guard let savedTime = UserDefaults.standard.object(forKey: backgroundTimestampKey) as? Date else { return }
+
+        let elapsed = Date().timeIntervalSince(savedTime)
+        print("📦 경과 시간: \(elapsed)초")
+
+        for app in apps {
+            guard app.state == .downloading else { continue }
+
+            let newRemaining = app.remainingTime - elapsed
+            if newRemaining <= 0 {
+                // 다운로드 완료
+                update(app.copyWith(state: .open, remainingTime: 0))
+                DownloadTimerManager.shared.cancelTimer(for: app.id)
+            } else {
+                // 남은 시간 보정 및 타이머 재시작
+                update(app.copyWith(state: .downloading, remainingTime: newRemaining))
+                DownloadTimerManager.shared.startTimer(for: app.id)
+            }
+        }
+    }
+    
     func transition(appID: String, action: AppDownloadAction) {
         guard let index = apps.firstIndex(where: { $0.id == appID }) else { return }
         var app = apps[index]
