@@ -11,7 +11,14 @@ import SwiftUI
 struct AppDockApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabView {
+                SearchView()
+                    .tabItem { Label("검색", systemImage: "magnifyingglass") }
+
+                AppListView()
+                    .tabItem { Label("내 앱", systemImage: "square.stack") }
+            }
+            .environmentObject(AppStateManager.shared)
         }
     }
 }
