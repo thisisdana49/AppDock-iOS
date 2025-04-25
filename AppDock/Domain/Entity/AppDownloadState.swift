@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AppDownloadState: String, Equatable {
+enum AppDownloadState: String, Equatable, Codable {
     case get          // 받기
     case downloading  // 다운로드중
     case paused       // 재개

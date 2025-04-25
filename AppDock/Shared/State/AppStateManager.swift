@@ -11,9 +11,15 @@ import Combine
 final class AppStateManager: ObservableObject {
     static let shared = AppStateManager()
 
-    @Published var apps: [AppItem] = []
+    @Published var apps: [AppItem] = [] {
+        didSet {
+            AppStateStore.shared.save(apps: apps)
+        }
+    }
 
-    private init() {}
+    private init() {
+        self.apps = AppStateStore.shared.load()
+    }
 
     func update(_ app: AppItem) {
         guard let index = apps.firstIndex(where: { $0.id == app.id }) else { return }

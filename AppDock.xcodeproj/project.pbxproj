@@ -22,6 +22,7 @@
 		3E929CFF2DBBBAC200C33558 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929CFE2DBBBAC200C33558 /* SearchViewModel.swift */; };
 		3E929D012DBBBAD400C33558 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D002DBBBAD400C33558 /* SearchView.swift */; };
 		3E929D032DBBBDCF00C33558 /* AppListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D022DBBBDCF00C33558 /* AppListView.swift */; };
+		3E929D072DBBC93400C33558 /* AppStateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D062DBBC93400C33558 /* AppStateStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		3E929CFE2DBBBAC200C33558 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		3E929D002DBBBAD400C33558 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		3E929D022DBBBDCF00C33558 /* AppListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppListView.swift; sourceTree = "<group>"; };
+		3E929D062DBBC93400C33558 /* AppStateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,6 +325,7 @@
 		3E929CBA2DBB62C000C33558 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				3E929D062DBBC93400C33558 /* AppStateStore.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				3E929CF92DBB79BA00C33558 /* AppDownloadAction.swift in Sources */,
 				3E929CEC2DBB6CC300C33558 /* AppDownloadState.swift in Sources */,
 				3E929D012DBBBAD400C33558 /* SearchView.swift in Sources */,
+				3E929D072DBBC93400C33558 /* AppStateStore.swift in Sources */,
 				3E929CF52DBB71B900C33558 /* DownloadTimerController.swift in Sources */,
 				3E929C9B2DBB609F00C33558 /* AppDockApp.swift in Sources */,
 				3E929CFD2DBB7A6000C33558 /* DefaultAppDownloadUseCase.swift in Sources */,
