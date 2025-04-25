@@ -6,17 +6,20 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3E929C9B2DBB609F00C33558 /* AppDockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929C972DBB609F00C33558 /* AppDockApp.swift */; };
+		3E929C9C2DBB609F00C33558 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929C992DBB609F00C33558 /* ContentView.swift */; };
+		3E929C9D2DBB609F00C33558 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E929C952DBB609F00C33558 /* Preview Assets.xcassets */; };
+		3E929C9E2DBB609F00C33558 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E929C982DBB609F00C33558 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		3E929C702DBB581E00C33558 /* AppDock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppDock.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E929C952DBB609F00C33558 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3E929C972DBB609F00C33558 /* AppDockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDockApp.swift; sourceTree = "<group>"; };
+		3E929C982DBB609F00C33558 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3E929C992DBB609F00C33558 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		3E929C722DBB581E00C33558 /* AppDock */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = AppDock;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		3E929C6D2DBB581E00C33558 /* Frameworks */ = {
@@ -32,7 +35,7 @@
 		3E929C672DBB581E00C33558 = {
 			isa = PBXGroup;
 			children = (
-				3E929C722DBB581E00C33558 /* AppDock */,
+				3E929C9A2DBB609F00C33558 /* AppDock */,
 				3E929C712DBB581E00C33558 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +46,273 @@
 				3E929C702DBB581E00C33558 /* AppDock.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3E929C942DBB609F00C33558 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				3E929CA32DBB624600C33558 /* Search */,
+				3E929CAB2DBB627000C33558 /* AppDetail */,
+				3E929CAF2DBB627900C33558 /* ScreenshotPreview */,
+				3E929CB32DBB628300C33558 /* AppList */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		3E929C962DBB609F00C33558 /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				3E929C952DBB609F00C33558 /* Preview Assets.xcassets */,
+			);
+			path = Supporting;
+			sourceTree = "<group>";
+		};
+		3E929C9A2DBB609F00C33558 /* AppDock */ = {
+			isa = PBXGroup;
+			children = (
+				3E929C972DBB609F00C33558 /* AppDockApp.swift */,
+				3E929CA22DBB623100C33558 /* Resources */,
+				3E929C942DBB609F00C33558 /* Presentation */,
+				3E929C9F2DBB60BA00C33558 /* Domain */,
+				3E929CA02DBB60BF00C33558 /* Core */,
+				3E929CA12DBB60C400C33558 /* Shared */,
+				3E929CBB2DBB62C800C33558 /* Components */,
+				3E929CBC2DBB62CD00C33558 /* Extensions */,
+				3E929CBD2DBB62D000C33558 /* Utilities */,
+				3E929C962DBB609F00C33558 /* Supporting */,
+				3E929C992DBB609F00C33558 /* ContentView.swift */,
+			);
+			path = AppDock;
+			sourceTree = "<group>";
+		};
+		3E929C9F2DBB60BA00C33558 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				3E929CB42DBB628B00C33558 /* Entity */,
+				3E929CB52DBB629000C33558 /* UseCase */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		3E929CA02DBB60BF00C33558 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				3E929CB82DBB62AD00C33558 /* Download */,
+				3E929CB92DBB62B500C33558 /* Network */,
+				3E929CBA2DBB62C000C33558 /* Persistence */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		3E929CA12DBB60C400C33558 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		3E929CA22DBB623100C33558 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3E929C982DBB609F00C33558 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		3E929CA32DBB624600C33558 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				3E929CA52DBB625800C33558 /* View */,
+				3E929CA62DBB626400C33558 /* ViewModel */,
+				3E929CA72DBB626800C33558 /* UIComponent */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		3E929CA52DBB625800C33558 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3E929CA62DBB626400C33558 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3E929CA72DBB626800C33558 /* UIComponent */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UIComponent;
+			sourceTree = "<group>";
+		};
+		3E929CA82DBB627000C33558 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3E929CA92DBB627000C33558 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3E929CAA2DBB627000C33558 /* UIComponent */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UIComponent;
+			sourceTree = "<group>";
+		};
+		3E929CAB2DBB627000C33558 /* AppDetail */ = {
+			isa = PBXGroup;
+			children = (
+				3E929CA82DBB627000C33558 /* View */,
+				3E929CA92DBB627000C33558 /* ViewModel */,
+				3E929CAA2DBB627000C33558 /* UIComponent */,
+			);
+			path = AppDetail;
+			sourceTree = "<group>";
+		};
+		3E929CAC2DBB627900C33558 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3E929CAD2DBB627900C33558 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3E929CAE2DBB627900C33558 /* UIComponent */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UIComponent;
+			sourceTree = "<group>";
+		};
+		3E929CAF2DBB627900C33558 /* ScreenshotPreview */ = {
+			isa = PBXGroup;
+			children = (
+				3E929CAC2DBB627900C33558 /* View */,
+				3E929CAD2DBB627900C33558 /* ViewModel */,
+				3E929CAE2DBB627900C33558 /* UIComponent */,
+			);
+			path = ScreenshotPreview;
+			sourceTree = "<group>";
+		};
+		3E929CB02DBB628300C33558 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3E929CB12DBB628300C33558 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3E929CB22DBB628300C33558 /* UIComponent */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UIComponent;
+			sourceTree = "<group>";
+		};
+		3E929CB32DBB628300C33558 /* AppList */ = {
+			isa = PBXGroup;
+			children = (
+				3E929CB02DBB628300C33558 /* View */,
+				3E929CB12DBB628300C33558 /* ViewModel */,
+				3E929CB22DBB628300C33558 /* UIComponent */,
+			);
+			path = AppList;
+			sourceTree = "<group>";
+		};
+		3E929CB42DBB628B00C33558 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		3E929CB52DBB629000C33558 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				3E929CB62DBB629400C33558 /* Protocol */,
+				3E929CB72DBB629900C33558 /* Implementation */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		3E929CB62DBB629400C33558 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		3E929CB72DBB629900C33558 /* Implementation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Implementation;
+			sourceTree = "<group>";
+		};
+		3E929CB82DBB62AD00C33558 /* Download */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Download;
+			sourceTree = "<group>";
+		};
+		3E929CB92DBB62B500C33558 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		3E929CBA2DBB62C000C33558 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		3E929CBB2DBB62C800C33558 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		3E929CBC2DBB62CD00C33558 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		3E929CBD2DBB62D000C33558 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -59,9 +329,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				3E929C722DBB581E00C33558 /* AppDock */,
 			);
 			name = AppDock;
 			packageProductDependencies = (
@@ -109,6 +376,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E929C9D2DBB609F00C33558 /* Preview Assets.xcassets in Resources */,
+				3E929C9E2DBB609F00C33558 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +388,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E929C9B2DBB609F00C33558 /* AppDockApp.swift in Sources */,
+				3E929C9C2DBB609F00C33558 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,15 +522,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"AppDock/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"AppDock/Supporting\"";
 				DEVELOPMENT_TEAM = CP9THWX4QS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -267,9 +538,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dana.AppDock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -280,15 +555,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"AppDock/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"AppDock/Supporting\"";
 				DEVELOPMENT_TEAM = CP9THWX4QS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -296,9 +571,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dana.AppDock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
