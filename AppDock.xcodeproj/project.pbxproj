@@ -25,6 +25,8 @@
 		3E929D072DBBC93400C33558 /* AppStateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D062DBBC93400C33558 /* AppStateStore.swift */; };
 		3E929D0B2DBCBA0B00C33558 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D0A2DBCBA0B00C33558 /* SearchResponse.swift */; };
 		3E929D0D2DBCBA5400C33558 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D0C2DBCBA5400C33558 /* APIClient.swift */; };
+		3E929D0F2DBCBAC800C33558 /* TempTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D0E2DBCBAC800C33558 /* TempTestViewModel.swift */; };
+		3E929D112DBCBAE000C33558 /* TempTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D102DBCBAE000C33558 /* TempTestView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +49,8 @@
 		3E929D062DBBC93400C33558 /* AppStateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateStore.swift; sourceTree = "<group>"; };
 		3E929D0A2DBCBA0B00C33558 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 		3E929D0C2DBCBA5400C33558 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		3E929D0E2DBCBAC800C33558 /* TempTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempTestViewModel.swift; sourceTree = "<group>"; };
+		3E929D102DBCBAE000C33558 /* TempTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempTestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				3E929D002DBBBAD400C33558 /* SearchView.swift */,
+				3E929D102DBCBAE000C33558 /* TempTestView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -170,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				3E929CFE2DBBBAC200C33558 /* SearchViewModel.swift */,
+				3E929D0E2DBCBAC800C33558 /* TempTestViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -438,6 +444,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E929D0F2DBCBAC800C33558 /* TempTestViewModel.swift in Sources */,
 				3E929CFF2DBBBAC200C33558 /* SearchViewModel.swift in Sources */,
 				3E929CF02DBB6D4500C33558 /* AppItem.swift in Sources */,
 				3E929CF92DBB79BA00C33558 /* AppDownloadAction.swift in Sources */,
@@ -453,6 +460,7 @@
 				3E929CF72DBB777200C33558 /* DownloadTimerManager.swift in Sources */,
 				3E929CF32DBB709200C33558 /* AppStateManager.swift in Sources */,
 				3E929D032DBBBDCF00C33558 /* AppListView.swift in Sources */,
+				3E929D112DBCBAE000C33558 /* TempTestView.swift in Sources */,
 				3E929CFB2DBB7A4700C33558 /* AppDownloadUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
