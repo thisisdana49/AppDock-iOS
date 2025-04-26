@@ -14,24 +14,28 @@ struct AppDockApp: App {
 
     var body: some Scene {
         WindowGroup {
-            TabView {
-                SearchView()
-                    .tabItem { Label("검색", systemImage: "magnifyingglass") }
-
-                AppListView()
-                    .tabItem { Label("내 앱", systemImage: "square.stack") }
-            }
-            .environmentObject(appState)
+            TempTestView()
+                .environmentObject(AppStateManager.shared)
         }
-        .onChange(of: scenePhase) { newPhase in
-            switch newPhase {
-            case .background:
-                appState.markBackgroundTimestamp()
-            case .active:
-                appState.syncTimersOnResume()
-            default:
-                break
-            }
-        }
+//        WindowGroup {
+//            TabView {
+//                SearchView()
+//                    .tabItem { Label("검색", systemImage: "magnifyingglass") }
+//
+//                AppListView()
+//                    .tabItem { Label("내 앱", systemImage: "square.stack") }
+//            }
+//            .environmentObject(appState)
+//        }
+//        .onChange(of: scenePhase) { newPhase in
+//            switch newPhase {
+//            case .background:
+//                appState.markBackgroundTimestamp()
+//            case .active:
+//                appState.syncTimersOnResume()
+//            default:
+//                break
+//            }
+//        }
     }
 }
