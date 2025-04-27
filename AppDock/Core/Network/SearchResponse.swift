@@ -17,4 +17,18 @@ struct SearchResultItem: Decodable {
     let trackName: String
     let artistName: String
     let artworkUrl100: String?
+    let artworkUrl512: String?
+    let screenshotUrls: [String]?
+    let description: String?
+    let minimumOsVersion: String?
+    let sellerName: String?
+    let primaryGenreName: String?
+    let genres: [String]?
+    let version: String?
+    let releaseNotes: String?
+    let trackViewUrl: String?
+    let price: Double?
+    let formattedPrice: String?
+    let averageUserRating: Double?
+    let userRatingCount: Int?
 }

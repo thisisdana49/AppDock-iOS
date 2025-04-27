@@ -19,7 +19,8 @@ final class APIClient {
         
         urlComponents.queryItems = [
             URLQueryItem(name: "term", value: term),
-            URLQueryItem(name: "entity", value: "software")
+            URLQueryItem(name: "entity", value: "software"),
+            URLQueryItem(name: "country", value: "kr")
         ]
         
         guard let url = urlComponents.url else {
