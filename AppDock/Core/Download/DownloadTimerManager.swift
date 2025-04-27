@@ -29,7 +29,12 @@ final class DownloadTimerManager {
             }
 
             controller.onComplete = { [weak self] in
-                self?.updateApp(appID: appID) { $0.state = .open; $0.remainingTime = 0 }
+                self?.updateApp(appID: appID) {
+                    $0.state = .open
+                    $0.remainingTime = 0
+                    $0.downloadedAt = Date()
+                    print("download complete", $0.downloadedAt)
+                }
                 self?.timers[appID] = nil
             }
 

@@ -30,6 +30,7 @@
 		3E929D152DBE3C6200C33558 /* AppSearchResultRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D142DBE3C6200C33558 /* AppSearchResultRowView.swift */; };
 		3E929D172DBE4CED00C33558 /* AppDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D162DBE4CED00C33558 /* AppDetailView.swift */; };
 		3E929D192DBE579900C33558 /* ScreenshotCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D182DBE579900C33558 /* ScreenshotCarouselView.swift */; };
+		3E929D1B2DBE5D3B00C33558 /* AppListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D1A2DBE5D3B00C33558 /* AppListRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		3E929D142DBE3C6200C33558 /* AppSearchResultRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSearchResultRowView.swift; sourceTree = "<group>"; };
 		3E929D162DBE4CED00C33558 /* AppDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailView.swift; sourceTree = "<group>"; };
 		3E929D182DBE579900C33558 /* ScreenshotCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCarouselView.swift; sourceTree = "<group>"; };
+		3E929D1A2DBE5D3B00C33558 /* AppListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppListRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,6 +278,7 @@
 		3E929CB22DBB628300C33558 /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
+				3E929D1A2DBE5D3B00C33558 /* AppListRowView.swift */,
 			);
 			path = UIComponent;
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 				3E929D0F2DBCBAC800C33558 /* TempTestViewModel.swift in Sources */,
 				3E929CFF2DBBBAC200C33558 /* SearchViewModel.swift in Sources */,
 				3E929CF02DBB6D4500C33558 /* AppItem.swift in Sources */,
+				3E929D1B2DBE5D3B00C33558 /* AppListRowView.swift in Sources */,
 				3E929CF92DBB79BA00C33558 /* AppDownloadAction.swift in Sources */,
 				3E929D0D2DBCBA5400C33558 /* APIClient.swift in Sources */,
 				3E929CEC2DBB6CC300C33558 /* AppDownloadState.swift in Sources */,
