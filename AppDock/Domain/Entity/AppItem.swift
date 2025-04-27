@@ -28,11 +28,13 @@ struct AppItem: Identifiable, Equatable, Codable {
     
     var state: AppDownloadState
     var remainingTime: TimeInterval
+    var downloadedAt: Date?
 }
 
 extension AppItem {
     func copyWith(state: AppDownloadState? = nil,
-                  remainingTime: TimeInterval? = nil) -> AppItem {
+                  remainingTime: TimeInterval? = nil,
+                  downloadedAt: Date? = nil) -> AppItem {
         AppItem(
             id: self.id,
             name: self.name,
@@ -52,7 +54,8 @@ extension AppItem {
             averageUserRating: self.averageUserRating,
             contentAdvisoryRating: self.contentAdvisoryRating,
             state: state ?? self.state,
-            remainingTime: remainingTime ?? self.remainingTime
+            remainingTime: remainingTime ?? self.remainingTime,
+            downloadedAt: downloadedAt ?? self.downloadedAt
         )
     }
 }

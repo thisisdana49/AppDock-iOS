@@ -16,12 +16,15 @@ struct AppListRowView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(app.name)
                     .font(.headline)
-                Text(app.developer)
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                Text(app.version)
-                    .font(.caption2)
-                    .foregroundColor(.gray)
+                if let date = app.downloadedAt {
+                    Text(Self.format(date: date))
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                } else {
+                    Text("엥")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                }
             }
             Spacer()
             Text("열기")
@@ -33,5 +36,12 @@ struct AppListRowView: View {
                 .clipShape(Capsule())
         }
         .padding(.vertical, 4)
+    }
+
+    private static func format(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "yyyy.M.d"
+        return formatter.string(from: date)
     }
 } 
