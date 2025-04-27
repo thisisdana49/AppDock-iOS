@@ -10,6 +10,8 @@ import SwiftUI
 struct AppListView: View {
     @EnvironmentObject var appState: AppStateManager
     @State private var searchText: String = ""
+    @State private var filteredApps: [AppItem] = []
+    @FocusState private var isSearchFocused: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -20,12 +22,16 @@ struct AppListView: View {
                 .padding(.top, 16)
                 .padding(.horizontal)
 
-            // 검색바 (UI만)
+            // 검색바 (실시간 필터링)
             HStack {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.gray)
                 TextField("게임, 앱, 스토리 등", text: $searchText)
-                    .disabled(true)
+                    .focused($isSearchFocused)
+                    .onChange(of: searchText) { _ in
+                        filterApps()
+                    }
+                    .submitLabel(.search)
             }
             .padding(10)
             .background(Color(.systemGray6))
@@ -34,7 +40,8 @@ struct AppListView: View {
             .padding(.top, 8)
 
             // 리스트 or EmptyView
-            if appState.downloadedApps.isEmpty {
+            let displayApps = searchText.isEmpty ? appState.downloadedApps : filteredApps
+            if displayApps.isEmpty {
                 VStack {
                     Spacer()
                     HStack{
@@ -48,11 +55,12 @@ struct AppListView: View {
                 }
             } else {
                 List {
-                    ForEach(appState.downloadedApps) { app in
+                    ForEach(displayApps) { app in
                         AppListRowView(app: app)
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button(role: .destructive) {
                                     appState.removeAppFromDownloadedList(appID: app.id)
+                                    filterApps()
                                 } label: {
                                     Label("삭제", systemImage: "trash")
                                 }
@@ -64,6 +72,21 @@ struct AppListView: View {
             }
         }
         .background(Color(.systemBackground))
+        .onAppear {
+            filterApps()
+        }
+    }
+
+    private func filterApps() {
+        let keyword = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        if keyword.isEmpty {
+            filteredApps = appState.downloadedApps
+        } else {
+            filteredApps = appState.downloadedApps.filter {
+                $0.name.localizedCaseInsensitiveContains(keyword) ||
+                $0.developer.localizedCaseInsensitiveContains(keyword)
+            }
+        }
     }
 }
 
