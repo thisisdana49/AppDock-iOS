@@ -5,7 +5,6 @@
 //  Created by 조다은 on 4/27/25.
 //
 
-
 import SwiftUI
 
 struct ScreenshotItem: Identifiable, Equatable {
@@ -19,7 +18,8 @@ struct AppDetailView: View {
     @State private var isLoading = false
     @State private var errorMessage: String?
     @State private var showFullReleaseNotes = false
-    @State private var selectedScreenshot: ScreenshotItem? = nil
+    @State private var showCarousel = false
+    @State private var carouselStartIndex = 0
     
     var body: some View {
         ScrollView {
@@ -89,10 +89,11 @@ struct AppDetailView: View {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("미리 보기")
                             .font(.headline)
+                        let screenshots = (detail.screenshotUrls ?? []).map { ScreenshotItem(url: $0) }
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 12) {
-                                ForEach(detail.screenshotUrls ?? [], id: \.self) { url in
-                                    AsyncImage(url: URL(string: url)) { image in
+                                ForEach(Array(screenshots.enumerated()), id: \ .element.id) { idx, item in
+                                    AsyncImage(url: URL(string: item.url)) { image in
                                         image
                                             .resizable()
                                             .scaledToFill()
@@ -103,7 +104,8 @@ struct AppDetailView: View {
                                     .clipped()
                                     .cornerRadius(12)
                                     .onTapGesture {
-                                        selectedScreenshot = ScreenshotItem(url: url)
+                                        carouselStartIndex = idx
+                                        showCarousel = true
                                     }
                                 }
                             }
@@ -121,10 +123,14 @@ struct AppDetailView: View {
         .onAppear {
             Task { await fetchDetail() }
         }
-        // 스크린샷 확대 화면
-        .fullScreenCover(item: $selectedScreenshot) { item in
-            ScreenshotFullScreenView(imageURL: item.url) {
-                selectedScreenshot = nil
+        // 스크린샷 Carousel 전체화면 뷰
+        .fullScreenCover(isPresented: $showCarousel) {
+            if let screenshots = detail?.screenshotUrls?.map({ ScreenshotItem(url: $0) }), !screenshots.isEmpty {
+                ScreenshotCarouselView(
+                    screenshots: screenshots,
+                    initialIndex: carouselStartIndex,
+                    isPresented: $showCarousel
+                )
             }
         }
     }
