@@ -28,6 +28,8 @@
 		3E929D0F2DBCBAC800C33558 /* TempTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D0E2DBCBAC800C33558 /* TempTestViewModel.swift */; };
 		3E929D112DBCBAE000C33558 /* TempTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D102DBCBAE000C33558 /* TempTestView.swift */; };
 		3E929D152DBE3C6200C33558 /* AppSearchResultRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D142DBE3C6200C33558 /* AppSearchResultRowView.swift */; };
+		3E929D172DBE4CED00C33558 /* AppDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D162DBE4CED00C33558 /* AppDetailView.swift */; };
+		3E929D192DBE579900C33558 /* ScreenshotCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D182DBE579900C33558 /* ScreenshotCarouselView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +55,8 @@
 		3E929D0E2DBCBAC800C33558 /* TempTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempTestViewModel.swift; sourceTree = "<group>"; };
 		3E929D102DBCBAE000C33558 /* TempTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempTestView.swift; sourceTree = "<group>"; };
 		3E929D142DBE3C6200C33558 /* AppSearchResultRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSearchResultRowView.swift; sourceTree = "<group>"; };
+		3E929D162DBE4CED00C33558 /* AppDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailView.swift; sourceTree = "<group>"; };
+		3E929D182DBE579900C33558 /* ScreenshotCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCarouselView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +197,7 @@
 		3E929CA82DBB627000C33558 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3E929D162DBE4CED00C33558 /* AppDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -224,6 +229,7 @@
 		3E929CAC2DBB627900C33558 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3E929D182DBE579900C33558 /* ScreenshotCarouselView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -458,12 +464,14 @@
 				3E929D072DBBC93400C33558 /* AppStateStore.swift in Sources */,
 				3E929CF52DBB71B900C33558 /* DownloadTimerController.swift in Sources */,
 				3E929C9B2DBB609F00C33558 /* AppDockApp.swift in Sources */,
+				3E929D192DBE579900C33558 /* ScreenshotCarouselView.swift in Sources */,
 				3E929CFD2DBB7A6000C33558 /* DefaultAppDownloadUseCase.swift in Sources */,
 				3E929D152DBE3C6200C33558 /* AppSearchResultRowView.swift in Sources */,
 				3E929C9C2DBB609F00C33558 /* ContentView.swift in Sources */,
 				3E929CF72DBB777200C33558 /* DownloadTimerManager.swift in Sources */,
 				3E929CF32DBB709200C33558 /* AppStateManager.swift in Sources */,
 				3E929D032DBBBDCF00C33558 /* AppListView.swift in Sources */,
+				3E929D172DBE4CED00C33558 /* AppDetailView.swift in Sources */,
 				3E929D112DBCBAE000C33558 /* TempTestView.swift in Sources */,
 				3E929CFB2DBB7A4700C33558 /* AppDownloadUseCase.swift in Sources */,
 			);
@@ -532,6 +540,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				baseConfigurationReference = APIConfig.xcconfig;
 			};
 			name = Debug;
 		};

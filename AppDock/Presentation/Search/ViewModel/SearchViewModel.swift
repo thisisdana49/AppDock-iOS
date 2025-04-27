@@ -80,7 +80,7 @@ final class SearchViewModel: ObservableObject {
                         price: item.price ?? 0,
                         formattedPrice: item.formattedPrice,
                         averageUserRating: item.averageUserRating,
-                        userRatingCount: item.userRatingCount,
+                        contentAdvisoryRating: item.contentAdvisoryRating,
                         state: .get,
                         remainingTime: 30
                     )
