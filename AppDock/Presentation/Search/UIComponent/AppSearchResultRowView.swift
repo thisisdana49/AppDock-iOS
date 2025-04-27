@@ -63,43 +63,45 @@ struct AppSearchResultRowView: View {
                     .foregroundColor(.gray)
             }
             // 스크린샷
-            GeometryReader { geometry in
-                let cellWidth = geometry.size.width
-                let screenshotWidth = (cellWidth - 16) / 3
-                let screenshots = Array(app.screenshotURLs.prefix(3))
-                let hasScreenshots = !screenshots.isEmpty
-
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 8) {
-                        if hasScreenshots {
-                            ForEach(screenshots, id: \.self) { url in
-                                AsyncImage(url: url) { image in
-                                    image
-                                        .resizable()
-                                        .scaledToFill()
-                                } placeholder: {
-                                    Color.gray.opacity(0.1)
-                                }
-                                .frame(width: screenshotWidth, height: screenshotWidth * 2)
-                                .clipped()
-                                .cornerRadius(10)
-                            }
-                        } else {
-                            ForEach(0..<3) { _ in
-                                Image(systemName: "photo")
-                                    .resizable()
-                                    .scaledToFit()
+            if app.state != .open {
+                GeometryReader { geometry in
+                    let cellWidth = geometry.size.width
+                    let screenshotWidth = (cellWidth - 16) / 3
+                    let screenshots = Array(app.screenshotURLs.prefix(3))
+                    let hasScreenshots = !screenshots.isEmpty
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 8) {
+                            if hasScreenshots {
+                                ForEach(screenshots, id: \.self) { url in
+                                    AsyncImage(url: url) { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFill()
+                                    } placeholder: {
+                                        Color.gray.opacity(0.1)
+                                    }
                                     .frame(width: screenshotWidth, height: screenshotWidth * 2)
-                                    .foregroundColor(.gray.opacity(0.3))
-                                    .background(Color.gray.opacity(0.1))
+                                    .clipped()
                                     .cornerRadius(10)
+                                }
+                            } else {
+                                ForEach(0..<3) { _ in
+                                    Image(systemName: "photo")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: screenshotWidth, height: screenshotWidth * 2)
+                                        .foregroundColor(.gray.opacity(0.3))
+                                        .background(Color.gray.opacity(0.1))
+                                        .cornerRadius(10)
+                                }
                             }
                         }
                     }
+                    .frame(height: screenshotWidth * 2)
                 }
-                .frame(height: screenshotWidth * 2)
+                .frame(height: 220)
             }
-            .frame(height: 220)
         }
         .padding(.vertical, 8)
     }
