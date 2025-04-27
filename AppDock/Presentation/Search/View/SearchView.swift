@@ -36,7 +36,7 @@ struct SearchView: View {
             }
 
             List {
-                ForEach(viewModel.apps) { app in
+                ForEach(viewModel.searchResults) { app in
                     HStack {
                         Text(app.name)
                         Spacer()
@@ -53,16 +53,11 @@ struct SearchView: View {
                     .padding(.vertical, 4)
                 }
             }
-
-            Button("더미 앱 삽입") {
-                viewModel.injectDummyApps()
-            }
-            .padding(.bottom)
         }
         .padding(.top)
     }
 }
 
-#Preview {
-    SearchView()
-}
+//#Preview {
+//    SearchView()
+//}
