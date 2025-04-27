@@ -12,7 +12,20 @@ struct AppItem: Identifiable, Equatable, Codable {
     let name: String
     let developer: String
     let iconURL: URL?
-
+    let screenshotURLs: [URL]
+    let description: String
+    let minimumOSVersion: String
+    let sellerName: String
+    let primaryGenreName: String
+    let genres: [String]
+    let version: String
+    let releaseNotes: String?
+    let trackViewUrl: URL?
+    let price: Double
+    let formattedPrice: String?
+    let averageUserRating: Double?
+    let userRatingCount: Int?
+    
     var state: AppDownloadState
     var remainingTime: TimeInterval
 }
@@ -25,6 +38,19 @@ extension AppItem {
             name: self.name,
             developer: self.developer,
             iconURL: self.iconURL,
+            screenshotURLs: self.screenshotURLs,
+            description: self.description,
+            minimumOSVersion: self.minimumOSVersion,
+            sellerName: self.sellerName,
+            primaryGenreName: self.primaryGenreName,
+            genres: self.genres,
+            version: self.version,
+            releaseNotes: self.releaseNotes,
+            trackViewUrl: self.trackViewUrl,
+            price: self.price,
+            formattedPrice: self.formattedPrice,
+            averageUserRating: self.averageUserRating,
+            userRatingCount: self.userRatingCount,
             state: state ?? self.state,
             remainingTime: remainingTime ?? self.remainingTime
         )

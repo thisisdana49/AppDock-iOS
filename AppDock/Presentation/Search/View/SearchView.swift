@@ -37,22 +37,12 @@ struct SearchView: View {
 
             List {
                 ForEach(viewModel.searchResults) { app in
-                    HStack {
-                        Text(app.name)
-                        Spacer()
-                        Button(app.state.labelText) {
-                            viewModel.didTapDownloadButton(appID: app.id)
-                        }
-                        .buttonStyle(.borderedProminent)
-
-                        if app.state == .downloading || app.state == .paused {
-                            Text("(\(Int(app.remainingTime))s)")
-                                .foregroundColor(.gray)
-                        }
+                    AppSearchResultRowView(app: app) {
+                        viewModel.didTapDownloadButton(appID: app.id)
                     }
-                    .padding(.vertical, 4)
                 }
             }
+            .listStyle(.plain)
         }
         .padding(.top)
     }
