@@ -10,41 +10,50 @@ import SwiftUI
 struct SearchView: View {
     @StateObject private var viewModel = SearchViewModel()
     @State private var searchTerm: String = ""
+    @State private var selectedAppId: String?
 
     var body: some View {
-        VStack(spacing: 20) {
-            HStack {
-                TextField("앱 이름 검색", text: $searchTerm)
-                    .textFieldStyle(.roundedBorder)
-                
-                Button("검색") {
-                    viewModel.searchApps(term: searchTerm)
+        NavigationView {
+            VStack(spacing: 20) {
+                HStack {
+                    TextField("앱 이름 검색", text: $searchTerm)
+                        .textFieldStyle(.roundedBorder)
+                    
+                    Button("검색") {
+                        viewModel.searchApps(term: searchTerm)
+                    }
+                    .buttonStyle(.borderedProminent)
                 }
-                .buttonStyle(.borderedProminent)
-            }
-            .padding(.horizontal)
+                .padding(.horizontal)
 
-            if viewModel.isLoading {
-                ProgressView()
-                    .padding()
-            }
+                if viewModel.isLoading {
+                    ProgressView()
+                        .padding()
+                }
 
-            if let errorMessage = viewModel.errorMessage {
-                Text("오류 발생: \(errorMessage)")
-                    .foregroundColor(.red)
-                    .padding()
-            }
+                if let errorMessage = viewModel.errorMessage {
+                    Text("오류 발생: \(errorMessage)")
+                        .foregroundColor(.red)
+                        .padding()
+                }
 
-            List {
-                ForEach(viewModel.searchResults) { app in
-                    AppSearchResultRowView(app: app) {
-                        viewModel.didTapDownloadButton(appID: app.id)
+                List {
+                    ForEach(viewModel.searchResults) { app in
+                        NavigationLink(
+                            destination: AppDetailView(appId: app.id),
+                            tag: app.id,
+                            selection: $selectedAppId
+                        ) {
+                            AppSearchResultRowView(app: app) {
+                                viewModel.didTapDownloadButton(appID: app.id)
+                            }
+                        }
                     }
                 }
+                .listStyle(.plain)
             }
-            .listStyle(.plain)
+            .padding(.top)
         }
-        .padding(.top)
     }
 }
 
