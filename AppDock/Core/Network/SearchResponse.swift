@@ -30,5 +30,5 @@ struct SearchResultItem: Decodable {
     let price: Double?
     let formattedPrice: String?
     let averageUserRating: Double?
-    let userRatingCount: Int?
+    let contentAdvisoryRating: String?
 }

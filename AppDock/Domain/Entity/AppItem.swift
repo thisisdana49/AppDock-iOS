@@ -24,7 +24,7 @@ struct AppItem: Identifiable, Equatable, Codable {
     let price: Double
     let formattedPrice: String?
     let averageUserRating: Double?
-    let userRatingCount: Int?
+    let contentAdvisoryRating: String?
     
     var state: AppDownloadState
     var remainingTime: TimeInterval
@@ -50,7 +50,7 @@ extension AppItem {
             price: self.price,
             formattedPrice: self.formattedPrice,
             averageUserRating: self.averageUserRating,
-            userRatingCount: self.userRatingCount,
+            contentAdvisoryRating: self.contentAdvisoryRating,
             state: state ?? self.state,
             remainingTime: remainingTime ?? self.remainingTime
         )
