@@ -1,34 +1,132 @@
+//
+//  AppDetailView.swift
+//  AppDock
+//
+//  Created by 조다은 on 4/27/25.
+//
+
+
 import SwiftUI
+
+struct ScreenshotItem: Identifiable, Equatable {
+    let url: String
+    var id: String { url }
+}
 
 struct AppDetailView: View {
     let appId: String
     @State private var detail: SearchResultItem?
     @State private var isLoading = false
     @State private var errorMessage: String?
-
+    @State private var showFullReleaseNotes = false
+    @State private var selectedScreenshot: ScreenshotItem? = nil
+    
     var body: some View {
-        VStack(spacing: 16) {
-            if isLoading {
-                ProgressView()
-            } else if let detail = detail {
-                Text("상세 정보 호출 성공!")
-                    .font(.title2)
-                    .foregroundColor(.green)
-                Text("앱 이름: \(detail.trackName)")
-                Text("제작사: \(detail.artistName)")
-            } else if let errorMessage = errorMessage {
-                Text("오류: \(errorMessage)")
-                    .foregroundColor(.red)
-            } else {
-                Text("상세 정보를 불러오지 못했습니다.")
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                if isLoading {
+                    ProgressView()
+                } else if let detail = detail {
+                    // 앱 아이콘, 이름, 열기 버튼
+                    HStack(alignment: .center, spacing: 16) {
+                        AsyncImage(url: URL(string: detail.artworkUrl100 ?? "")) { image in
+                            image.resizable()
+                        } placeholder: {
+                            Color.gray.opacity(0.2)
+                        }
+                        .frame(width: 80, height: 80)
+                        .clipShape(RoundedRectangle(cornerRadius: 18))
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(detail.trackName)
+                                .font(.title2)
+                                .bold()
+                            Text(detail.artistName)
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                        }
+                        Spacer()
+                        Button("열기") {}
+                            .buttonStyle(.borderedProminent)
+                    }
+
+                    // 앱 정보 가로 스크롤
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 24) {
+                            InfoColumn(title: "버전", value: detail.version ?? "-")
+                            InfoColumn(title: "연령", value: String(detail.averageUserRating ?? 0.0))
+                            InfoColumn(title: "카테고리", value: detail.primaryGenreName ?? "-")
+                            InfoColumn(title: "개발자", value: detail.sellerName ?? "-")
+                        }
+                        .padding(.vertical, 8)
+                    }
+
+                    Divider()
+
+                    // 새로운 소식 (릴리즈 노트)
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("새로운 소식")
+                            .font(.headline)
+                        if let notes = detail.releaseNotes, !notes.isEmpty {
+                            Text(notes)
+                                .font(.body)
+                                .lineLimit(showFullReleaseNotes ? nil : 3)
+                            if !showFullReleaseNotes && notes.count > 60 {
+                                Button("더보기") {
+                                    showFullReleaseNotes = true
+                                }
+                                .font(.caption)
+                            }
+                        } else {
+                            Text("릴리즈 노트가 없습니다.")
+                                .foregroundColor(.gray)
+                        }
+                    }
+
+                    Divider()
+
+                    // 미리보기(스크린샷)
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("미리 보기")
+                            .font(.headline)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 12) {
+                                ForEach(detail.screenshotUrls ?? [], id: \.self) { url in
+                                    AsyncImage(url: URL(string: url)) { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFill()
+                                    } placeholder: {
+                                        Color.gray.opacity(0.1)
+                                    }
+                                    .frame(width: 180, height: 360)
+                                    .clipped()
+                                    .cornerRadius(12)
+                                    .onTapGesture {
+                                        selectedScreenshot = ScreenshotItem(url: url)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else if let errorMessage = errorMessage {
+                    Text("오류: \(errorMessage)")
+                        .foregroundColor(.red)
+                } else {
+                    Text("상세 정보를 불러오지 못했습니다.")
+                }
             }
+            .padding()
         }
         .onAppear {
-            Task {
-                await fetchDetail()
+            Task { await fetchDetail() }
+        }
+        // 스크린샷 확대 화면
+        .fullScreenCover(item: $selectedScreenshot) { item in
+            ScreenshotFullScreenView(imageURL: item.url) {
+                selectedScreenshot = nil
             }
         }
-        .padding()
     }
 
     private func fetchDetail() async {
@@ -41,5 +139,47 @@ struct AppDetailView: View {
             errorMessage = error.localizedDescription
         }
         isLoading = false
+    }
+}
+
+// 앱 정보 컬럼 뷰
+struct InfoColumn: View {
+    let title: String
+    let value: String
+    var body: some View {
+        VStack {
+            Text(value)
+                .font(.headline)
+            Text(title)
+                .font(.caption)
+                .foregroundColor(.gray)
+        }
+        .frame(minWidth: 60)
+    }
+}
+
+// 스크린샷 전체화면 뷰
+struct ScreenshotFullScreenView: View, Identifiable {
+    let imageURL: String
+    let onDismiss: () -> Void
+    var id: String { imageURL }
+    var body: some View {
+        ZStack(alignment: .topTrailing) {
+            Color.black.ignoresSafeArea()
+            AsyncImage(url: URL(string: imageURL)) { image in
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } placeholder: {
+                ProgressView()
+            }
+            Button(action: onDismiss) {
+                Image(systemName: "xmark.circle.fill")
+                    .font(.system(size: 32))
+                    .foregroundColor(.white)
+                    .padding()
+            }
+        }
     }
 }
