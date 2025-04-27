@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct AppListView: View {
     @EnvironmentObject var appState: AppStateManager
@@ -73,6 +74,9 @@ struct AppListView: View {
         }
         .background(Color(.systemBackground))
         .onAppear {
+            filterApps()
+        }
+        .onReceive(appState.$apps) { _ in
             filterApps()
         }
     }
