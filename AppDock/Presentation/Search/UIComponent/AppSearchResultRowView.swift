@@ -13,7 +13,7 @@ struct AppSearchResultRowView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .top) {
+            HStack(alignment: .center) {
                 // 앱 아이콘
                 AsyncImage(url: app.iconURL) { image in
                     image.resizable()
@@ -33,15 +33,6 @@ struct AppSearchResultRowView: View {
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                         .lineLimit(1)
-                    // 설명(최소버전, 카테고리 등)
-                    HStack(spacing: 8) {
-                        Text("iOS 16.0+") // 더미
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                        Text("Navigation") // 더미
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                    }
                 }
                 Spacer()
                 // 다운로드 버튼
@@ -57,10 +48,24 @@ struct AppSearchResultRowView: View {
                     }
                 }
             }
+            // 설명
+            HStack(spacing: 8) {
+                Text(app.minimumOSVersion)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                Spacer()
+                Text(app.sellerName)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                Spacer()
+                Text(app.primaryGenreName)  // TODO: 장르 한국어로 매핑
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }
             // 스크린샷
             GeometryReader { geometry in
                 let cellWidth = geometry.size.width
-                let screenshotWidth = (cellWidth - 16) / 3 // 16은 패딩 보정값(조정 가능)
+                let screenshotWidth = (cellWidth - 16) / 3
                 let screenshots = Array(app.screenshotURLs.prefix(3))
                 let hasScreenshots = !screenshots.isEmpty
 
