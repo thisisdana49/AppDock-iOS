@@ -9,33 +9,33 @@ import SwiftUI
 
 @main
 struct AppDockApp: App {
-    @Environment(\.scenePhase) private var scenePhase
     @StateObject private var appState = AppStateManager.shared
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some Scene {
         WindowGroup {
-            TempTestView()
-                .environmentObject(AppStateManager.shared)
+            TabView {
+                SearchView()
+                    .tabItem {
+                        Label("검색", systemImage: "magnifyingglass")
+                    }
+
+                AppListView()
+                    .tabItem {
+                        Label("내 앱", systemImage: "square.stack")
+                    }
+            }
+            .environmentObject(appState)
+            .onChange(of: scenePhase) { newPhase in
+                switch newPhase {
+                case .background:
+                    appState.markBackgroundTimestamp()
+                case .active:
+                    appState.syncTimersOnResume()
+                default:
+                    break
+                }
+            }
         }
-//        WindowGroup {
-//            TabView {
-//                SearchView()
-//                    .tabItem { Label("검색", systemImage: "magnifyingglass") }
-//
-//                AppListView()
-//                    .tabItem { Label("내 앱", systemImage: "square.stack") }
-//            }
-//            .environmentObject(appState)
-//        }
-//        .onChange(of: scenePhase) { newPhase in
-//            switch newPhase {
-//            case .background:
-//                appState.markBackgroundTimestamp()
-//            case .active:
-//                appState.syncTimersOnResume()
-//            default:
-//                break
-//            }
-//        }
     }
 }
