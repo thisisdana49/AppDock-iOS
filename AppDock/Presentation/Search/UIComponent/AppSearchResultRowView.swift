@@ -34,6 +34,7 @@ struct AppSearchResultRowView: View {
                         .foregroundColor(.secondary)
                         .lineLimit(1)
                 }
+                .padding(.leading, 4)
                 Spacer()
                 // 다운로드 버튼 UI 개선
                 VStack {
@@ -99,16 +100,25 @@ struct AppSearchResultRowView: View {
             // 설명
             HStack(spacing: 8) {
                 Text(app.minimumOSVersion)
-                    .font(.caption)
                     .foregroundColor(.gray)
+                    .font(.caption)
+                    .bold()
+                    .lineLimit(1)
+                    .truncationMode(.tail)
                 Spacer()
                 Text(app.sellerName)
-                    .font(.caption)
                     .foregroundColor(.gray)
+                    .font(.caption)
+                    .bold()
+                    .lineLimit(1)
+                    .truncationMode(.tail)
                 Spacer()
                 Text(app.primaryGenreName)  // TODO: 장르 한국어로 매핑
-                    .font(.caption)
                     .foregroundColor(.gray)
+                    .font(.caption)
+                    .bold()
+                    .lineLimit(1)
+                    .truncationMode(.tail)
             }
             // 스크린샷
             if app.state != .open {
@@ -152,6 +162,7 @@ struct AppSearchResultRowView: View {
             }
         }
         .padding(.vertical, 8)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 

@@ -39,11 +39,15 @@ struct SearchView: View {
 
                 List {
                     ForEach(viewModel.searchResults) { app in
-                        NavigationLink(
-                            destination: AppDetailView(appId: app.id),
-                            tag: app.id,
-                            selection: $selectedAppId
-                        ) {
+                        ZStack {
+                            NavigationLink(
+                                destination: AppDetailView(appId: app.id),
+                                tag: app.id,
+                                selection: $selectedAppId
+                            ) {
+                                EmptyView()
+                            }
+                            .opacity(0)
                             AppSearchResultRowView(app: app) {
                                 viewModel.didTapDownloadButton(appID: app.id)
                             }
