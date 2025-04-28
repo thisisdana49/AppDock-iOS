@@ -26,11 +26,21 @@ final class SearchViewModel: ObservableObject {
         appState.$apps
             .sink { [weak self] updatedApps in
                 guard let self = self else { return }
-                
-                // searchResults의 앱 상태를 업데이트
-                for (index, app) in self.searchResults.enumerated() {
-                    if let updatedApp = updatedApps.first(where: { $0.id == app.id }) {
-                        self.searchResults[index] = updatedApp
+                // searchResults의 앱 상태를 업데이트 및 삭제 반영
+                self.searchResults = self.searchResults.compactMap { result in
+                    if let updated = updatedApps.first(where: { $0.id == result.id }) {
+                        return updated
+                    } else if self.appState.apps.contains(where: { $0.id == result.id }) == false && result.state == .open {
+                        // 앱이 삭제되어 .retry 등으로 바뀐 경우, 검색 결과에서 상태만 갱신
+                        var modified = result
+                        if let latest = self.appState.apps.first(where: { $0.id == result.id }) {
+                            modified = latest
+                        } else {
+                            modified = result.copyWith(state: .retry)
+                        }
+                        return modified
+                    } else {
+                        return result
                     }
                 }
             }
