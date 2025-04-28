@@ -123,6 +123,7 @@ struct AppDetailView: View {
                         }
                         Spacer()
                     }
+                    .padding(.horizontal)
                     
                     Divider()
 
@@ -145,13 +146,12 @@ struct AppDetailView: View {
                         }
                         .frame(width: columnWidth * 4)
                     }
-                    .frame(height: 40)
-                    .padding(.horizontal)
+                    .frame(width: columnWidth * 3 + columnWidth / 3, height: 40)
 
-                    Divider()
 
                     // 새로운 소식 (릴리즈 노트)
                     VStack(alignment: .leading, spacing: 8) {
+                        Divider()
                         Text("새로운 소식")
                             .font(.headline)
                         if let notes = detail.releaseNotes, !notes.isEmpty {
@@ -168,35 +168,42 @@ struct AppDetailView: View {
                             Text("릴리즈 노트가 없습니다.")
                                 .foregroundColor(.gray)
                         }
+                        Divider()
                     }
+                    .padding(.horizontal)
 
-                    Divider()
 
                     // 미리보기(스크린샷)
                     VStack(alignment: .leading, spacing: 8) {
                         Text("미리 보기")
                             .font(.headline)
+                            .padding(.leading)
                         let screenshots = (detail.screenshotUrls ?? []).map { ScreenshotItem(url: $0) }
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 12) {
-                                ForEach(Array(screenshots.enumerated()), id: \ .element.id) { idx, item in
-                                    AsyncImage(url: URL(string: item.url)) { image in
-                                        image
-                                            .resizable()
-                                            .scaledToFill()
-                                    } placeholder: {
-                                        Color.gray.opacity(0.1)
-                                    }
-                                    .frame(width: 180, height: 360)
-                                    .clipped()
-                                    .cornerRadius(12)
-                                    .onTapGesture {
-                                        carouselStartIndex = idx
-                                        showCarousel = true
+                        GeometryReader { geometry in
+                            let screenshotWidth = geometry.size.width / 1.8
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 12) {
+                                    ForEach(Array(screenshots.enumerated()), id: \ .element.id) { idx, item in
+                                        AsyncImage(url: URL(string: item.url)) { image in
+                                            image
+                                                .resizable()
+                                                .scaledToFill()
+                                        } placeholder: {
+                                            Color.gray.opacity(0.1)
+                                        }
+                                        .frame(width: screenshotWidth, height: screenshotWidth * 2)
+                                        .clipped()
+                                        .cornerRadius(4)
+                                        .onTapGesture {
+                                            carouselStartIndex = idx
+                                            showCarousel = true
+                                        }
                                     }
                                 }
                             }
+                            .padding(.horizontal)
                         }
+                        .frame(height: (UIScreen.main.bounds.width / 1.6) * 2)
                     }
                 } else if let errorMessage = errorMessage {
                     Text("오류: \(errorMessage)")
