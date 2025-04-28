@@ -31,6 +31,9 @@
 		3E929D172DBE4CED00C33558 /* AppDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D162DBE4CED00C33558 /* AppDetailView.swift */; };
 		3E929D192DBE579900C33558 /* ScreenshotCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D182DBE579900C33558 /* ScreenshotCarouselView.swift */; };
 		3E929D1B2DBE5D3B00C33558 /* AppListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D1A2DBE5D3B00C33558 /* AppListRowView.swift */; };
+		3E929D312DBF760500C33558 /* DownloadProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D2D2DBF760500C33558 /* DownloadProgressView.swift */; };
+		3E929D322DBF760500C33558 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D2E2DBF760500C33558 /* EmptyStateView.swift */; };
+		3E929D342DBF7CCD00C33558 /* DownloadProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D332DBF7CCD00C33558 /* DownloadProgressCircleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +62,9 @@
 		3E929D162DBE4CED00C33558 /* AppDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailView.swift; sourceTree = "<group>"; };
 		3E929D182DBE579900C33558 /* ScreenshotCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCarouselView.swift; sourceTree = "<group>"; };
 		3E929D1A2DBE5D3B00C33558 /* AppListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppListRowView.swift; sourceTree = "<group>"; };
+		3E929D2D2DBF760500C33558 /* DownloadProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadProgressView.swift; sourceTree = "<group>"; };
+		3E929D2E2DBF760500C33558 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		3E929D332DBF7CCD00C33558 /* DownloadProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadProgressCircleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +97,7 @@
 		3E929C942DBB609F00C33558 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				3E929D302DBF760500C33558 /* Common */,
 				3E929CA32DBB624600C33558 /* Search */,
 				3E929CAB2DBB627000C33558 /* AppDetail */,
 				3E929CAF2DBB627900C33558 /* ScreenshotPreview */,
@@ -383,6 +390,24 @@
 			path = State;
 			sourceTree = "<group>";
 		};
+		3E929D2F2DBF760500C33558 /* UIComponent */ = {
+			isa = PBXGroup;
+			children = (
+				3E929D2D2DBF760500C33558 /* DownloadProgressView.swift */,
+				3E929D332DBF7CCD00C33558 /* DownloadProgressCircleView.swift */,
+				3E929D2E2DBF760500C33558 /* EmptyStateView.swift */,
+			);
+			path = UIComponent;
+			sourceTree = "<group>";
+		};
+		3E929D302DBF760500C33558 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				3E929D2F2DBF760500C33558 /* UIComponent */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -460,10 +485,13 @@
 				3E929CFF2DBBBAC200C33558 /* SearchViewModel.swift in Sources */,
 				3E929CF02DBB6D4500C33558 /* AppItem.swift in Sources */,
 				3E929D1B2DBE5D3B00C33558 /* AppListRowView.swift in Sources */,
+				3E929D342DBF7CCD00C33558 /* DownloadProgressCircleView.swift in Sources */,
 				3E929CF92DBB79BA00C33558 /* AppDownloadAction.swift in Sources */,
 				3E929D0D2DBCBA5400C33558 /* APIClient.swift in Sources */,
 				3E929CEC2DBB6CC300C33558 /* AppDownloadState.swift in Sources */,
 				3E929D0B2DBCBA0B00C33558 /* SearchResponse.swift in Sources */,
+				3E929D312DBF760500C33558 /* DownloadProgressView.swift in Sources */,
+				3E929D322DBF760500C33558 /* EmptyStateView.swift in Sources */,
 				3E929D012DBBBAD400C33558 /* SearchView.swift in Sources */,
 				3E929D072DBBC93400C33558 /* AppStateStore.swift in Sources */,
 				3E929CF52DBB71B900C33558 /* DownloadTimerController.swift in Sources */,
@@ -615,7 +643,7 @@
 				DEVELOPMENT_TEAM = CP9THWX4QS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = AppDock;
+				INFOPLIST_KEY_CFBundleDisplayName = "조다은";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -650,7 +678,7 @@
 				DEVELOPMENT_TEAM = CP9THWX4QS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = AppDock;
+				INFOPLIST_KEY_CFBundleDisplayName = "조다은";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

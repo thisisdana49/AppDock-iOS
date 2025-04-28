@@ -21,6 +21,7 @@ struct AppDetailView: View {
     @State private var showFullReleaseNotes = false
     @State private var showCarousel = false
     @State private var carouselStartIndex = 0
+    @State private var showFullDescription = false
     
     // 앱 상태 동기화: AppStateManager에서 최신 AppItem을 가져옴
     var syncedApp: AppItem? {
@@ -47,41 +48,110 @@ struct AppDetailView: View {
                             Text(detail.trackName)
                                 .font(.title2)
                                 .bold()
+                                .lineLimit(2)
+                                .truncationMode(.tail)
                             Text(detail.artistName)
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
+                                .lineLimit(2)
+                                .truncationMode(.tail)
+                            if let app = syncedApp {
+                                switch app.state {
+                                case .get:
+                                    Button("받기") {
+                                        AppStateManager.shared.transition(appID: app.id, action: .tapDownloadButton)
+                                    }
+                                    .font(.subheadline.bold())
+                                    .foregroundColor(.blue)
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 10)
+                                    .background(Color(.systemGray6))
+                                    .clipShape(Capsule())
+                                case .downloading:
+                                    Button(action: {
+                                        AppStateManager.shared.transition(appID: app.id, action: .tapDownloadButton)
+                                    }) {
+                                        DownloadProgressCircleView(
+                                            progress: 1.0 - (app.remainingTime / 30.0),
+                                            isPaused: false
+                                        )
+                                    }
+                                case .paused:
+                                    Button(action: {
+                                        AppStateManager.shared.transition(appID: app.id, action: .tapDownloadButton)
+                                    }) {
+                                        HStack(spacing: 4) {
+                                            Image(systemName: "icloud.and.arrow.down")
+                                            Text("재개")
+                                        }
+                                        .font(.subheadline.bold())
+                                        .foregroundColor(.blue)
+                                        .padding(.horizontal, 20)
+                                        .padding(.vertical, 10)
+                                        .background(Color(.systemGray6))
+                                        .clipShape(Capsule())
+                                    }
+                                case .open:
+                                    Button("열기") {
+                                        AppStateManager.shared.transition(appID: app.id, action: .tapDownloadButton)
+                                    }
+                                    .font(.subheadline.bold())
+                                    .foregroundColor(.blue)
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 10)
+                                    .background(Color(.systemGray6))
+                                    .clipShape(Capsule())
+                                case .retry:
+                                    Button(action: {
+                                        AppStateManager.shared.transition(appID: app.id, action: .tapDownloadButton)
+                                    }) {
+                                        Image(systemName: "icloud.and.arrow.down")
+                                            .font(.subheadline.bold())
+                                            .foregroundColor(.blue)
+                                            .padding(.horizontal, 20)
+                                            .padding(.vertical, 10)
+                                    }
+                                }
+                            } else {
+                                Button("받기") {}
+                                    .font(.subheadline.bold())
+                                    .foregroundColor(.blue)
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 10)
+                                    .background(Color(.systemGray6))
+                                    .clipShape(Capsule())
+                            }
                         }
                         Spacer()
-                        if let app = syncedApp {
-                            VStack {
-                                Button(app.state.labelText) {
-                                    AppStateManager.shared.transition(appID: app.id, action: .tapDownloadButton)
-                                }
-                                .buttonStyle(.borderedProminent)
-                                if app.state == .downloading || app.state == .paused {
-                                    Text("(\(Int(app.remainingTime))s)")
-                                        .font(.caption2)
-                                        .foregroundColor(.gray)
-                                }
-                            }
-                        } else {
-                            Button("받기") {}
-                                .buttonStyle(.borderedProminent)
-                        }
                     }
+                    .padding(.horizontal)
+                    
 
                     // 앱 정보 가로 스크롤
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 24) {
-                            InfoColumn(title: "버전", value: detail.version ?? "-")
-                            InfoColumn(title: "연령", value: String(detail.averageUserRating ?? 0.0))
-                            InfoColumn(title: "카테고리", value: detail.primaryGenreName ?? "-")
-                            InfoColumn(title: "개발자", value: detail.sellerName ?? "-")
-                        }
-                        .padding(.vertical, 8)
-                    }
-
+                    
+                    let columnWidth = UIScreen.main.bounds.width / 3.33
                     Divider()
+                        .padding(.horizontal)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 0) {
+                            InfoColumn(title: "버전", value: detail.version ?? "-")
+                                .frame(width: columnWidth)
+                            Divider()
+                            InfoColumn(title: "연령", value: String(detail.averageUserRating ?? 0.0))
+                                .frame(width: columnWidth)
+                            Divider()
+                            InfoColumn(title: "카테고리", value: detail.primaryGenreName ?? "-")
+                                .frame(width: columnWidth)
+                            Divider()
+                            InfoColumn(title: "개발자", value: detail.sellerName ?? "-")
+                                .frame(width: columnWidth)
+                        }
+                        .frame(width: columnWidth * 4)
+                    }
+                    .frame(width: columnWidth * 3 + columnWidth / 3, height: 40)
+                    Divider()
+                        .padding(.horizontal)
+
 
                     // 새로운 소식 (릴리즈 노트)
                     VStack(alignment: .leading, spacing: 8) {
@@ -102,31 +172,55 @@ struct AppDetailView: View {
                                 .foregroundColor(.gray)
                         }
                     }
+                    .padding(.horizontal)
 
-                    Divider()
 
                     // 미리보기(스크린샷)
                     VStack(alignment: .leading, spacing: 8) {
                         Text("미리 보기")
                             .font(.headline)
+                            .padding(.leading)
                         let screenshots = (detail.screenshotUrls ?? []).map { ScreenshotItem(url: $0) }
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 12) {
-                                ForEach(Array(screenshots.enumerated()), id: \ .element.id) { idx, item in
-                                    AsyncImage(url: URL(string: item.url)) { image in
-                                        image
-                                            .resizable()
-                                            .scaledToFill()
-                                    } placeholder: {
-                                        Color.gray.opacity(0.1)
+                        GeometryReader { geometry in
+                            let screenshotWidth = geometry.size.width / 1.8
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 12) {
+                                    ForEach(Array(screenshots.enumerated()), id: \ .element.id) { idx, item in
+                                        AsyncImage(url: URL(string: item.url)) { image in
+                                            image
+                                                .resizable()
+                                                .scaledToFill()
+                                        } placeholder: {
+                                            Color.gray.opacity(0.1)
+                                        }
+                                        .frame(width: screenshotWidth, height: screenshotWidth * 2)
+                                        .clipped()
+                                        .cornerRadius(4)
+                                        .onTapGesture {
+                                            carouselStartIndex = idx
+                                            showCarousel = true
+                                        }
                                     }
-                                    .frame(width: 180, height: 360)
-                                    .clipped()
-                                    .cornerRadius(12)
-                                    .onTapGesture {
-                                        carouselStartIndex = idx
-                                        showCarousel = true
+                                }
+                                .padding(.horizontal)
+                            }
+                        }
+                        .frame(height: (UIScreen.main.bounds.width / 1.6) * 2)
+                        // 앱 설명 추가
+                        if let desc = detail.description, !desc.isEmpty {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(desc)
+                                    .font(.body)
+                                    .foregroundColor(.primary)
+                                    .padding(.horizontal)
+                                    .padding(.top, 8)
+                                    .lineLimit(showFullDescription ? nil : 3)
+                                if !showFullDescription && desc.count > 60 {
+                                    Button("더보기") {
+                                        showFullDescription = true
                                     }
+                                    .font(.caption)
+                                    .padding(.horizontal)
                                 }
                             }
                         }
@@ -149,7 +243,13 @@ struct AppDetailView: View {
                 ScreenshotCarouselView(
                     screenshots: screenshots,
                     initialIndex: carouselStartIndex,
-                    isPresented: $showCarousel
+                    isPresented: $showCarousel,
+                    app: syncedApp,
+                    onDownload: {
+                        if let app = syncedApp {
+                            AppStateManager.shared.transition(appID: app.id, action: .tapDownloadButton)
+                        }
+                    }
                 )
             }
         }
@@ -174,11 +274,16 @@ struct InfoColumn: View {
     let value: String
     var body: some View {
         VStack {
-            Text(value)
-                .font(.headline)
             Text(title)
                 .font(.caption)
                 .foregroundColor(.gray)
+                .lineLimit(1)
+                .truncationMode(.tail)
+            Text(value)
+                .font(.headline)
+                .foregroundColor(.gray)
+                .lineLimit(1)
+                .truncationMode(.tail)
         }
         .frame(minWidth: 60)
     }

@@ -34,33 +34,91 @@ struct AppSearchResultRowView: View {
                         .foregroundColor(.secondary)
                         .lineLimit(1)
                 }
+                .padding(.leading, 4)
                 Spacer()
-                // 다운로드 버튼
+                // 다운로드 버튼 UI 개선
                 VStack {
-                    Button(app.state.labelText) {
-                        onDownload()
-                    }
-                    .buttonStyle(.borderedProminent)
-                    if app.state == .downloading || app.state == .paused {
-                        Text("(\(Int(app.remainingTime))s)")
-                            .font(.caption2)
-                            .foregroundColor(.gray)
+                    switch app.state {
+                    case .get:
+                        Button(action: { onDownload() }) {
+                            Text("받기")
+                                .font(.subheadline.bold())
+                                .foregroundColor(.blue)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 10)
+                                .background(Color(.systemGray6))
+                                .clipShape(Capsule())
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    case .downloading:
+                        Button(action: { onDownload() }) {
+                            DownloadProgressCircleView(
+                                progress: 1.0 - (app.remainingTime / 30.0),
+                                isPaused: false
+                            )
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    case .paused:
+                        Button(action: { onDownload() }) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "icloud.and.arrow.down")
+                                Text("재개")
+                            }
+                            .font(.subheadline.bold())
+                            .foregroundColor(.blue)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
+                            .background(Color(.systemGray6))
+                            .clipShape(Capsule())
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    case .open:
+                        Button(action: { onDownload() }) {
+                            Text("열기")
+                                .font(.subheadline.bold())
+                                .foregroundColor(.blue)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 10)
+                                .background(Color(.systemGray6))
+                                .clipShape(Capsule())
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    case .retry:
+                        Button(action: { onDownload() }) {
+                            Image(systemName: "icloud.and.arrow.down")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundColor(.blue)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 10)
+                                .background(Color(.systemGray6))
+                                .clipShape(Capsule())
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
             }
             // 설명
             HStack(spacing: 8) {
                 Text(app.minimumOSVersion)
-                    .font(.caption)
                     .foregroundColor(.gray)
+                    .font(.caption)
+                    .bold()
+                    .lineLimit(1)
+                    .truncationMode(.tail)
                 Spacer()
                 Text(app.sellerName)
-                    .font(.caption)
                     .foregroundColor(.gray)
+                    .font(.caption)
+                    .bold()
+                    .lineLimit(1)
+                    .truncationMode(.tail)
                 Spacer()
                 Text(app.primaryGenreName)  // TODO: 장르 한국어로 매핑
-                    .font(.caption)
                     .foregroundColor(.gray)
+                    .font(.caption)
+                    .bold()
+                    .lineLimit(1)
+                    .truncationMode(.tail)
             }
             // 스크린샷
             if app.state != .open {
@@ -104,6 +162,7 @@ struct AppSearchResultRowView: View {
             }
         }
         .padding(.vertical, 8)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
