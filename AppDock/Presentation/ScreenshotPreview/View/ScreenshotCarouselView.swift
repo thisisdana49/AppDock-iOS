@@ -19,29 +19,75 @@ struct ScreenshotCarouselView: View {
     }
 
     var body: some View {
-        ZStack(alignment: .topTrailing) {
-            Color.black.ignoresSafeArea()
-            TabView(selection: $selectedIndex) {
-                ForEach(Array(screenshots.enumerated()), id: \ .element.id) { idx, item in
-                    AsyncImage(url: URL(string: item.url)) { image in
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    } placeholder: {
-                        ProgressView()
+        GeometryReader { geometry in
+            let imageWidthRatio: CGFloat = 0.8
+            let spacing: CGFloat = 12
+            let imageWidth = geometry.size.width * imageWidthRatio
+            let sidePadding = (geometry.size.width - imageWidth) / 2
+            ZStack(alignment: .top) {
+                Color.white.ignoresSafeArea()
+                VStack(spacing: 0) {
+                    // 상단 버튼
+                    HStack {
+                        Button("완료") { isPresented = false }
+                            .foregroundColor(.black)
+                            .padding()
+                        Spacer()
+                        Button("열기") {
+                            // 열기 액션: 상세화면의 버튼 로직을 외부에서 주입하거나, 추후 구현
+                        }
+                        .foregroundColor(.black)
+                        .padding()
                     }
-                    .tag(idx)
-                }
-            }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+                    .padding(.top, 48)
+                    .padding(.horizontal)
 
-            Button(action: { isPresented = false }) {
-                Image(systemName: "xmark.circle.fill")
-                    .font(.system(size: 32))
-                    .foregroundColor(.white)
-                    .padding()
+                    Spacer(minLength: 24)
+
+                    // 캐러셀
+                    ScrollViewReader { scrollProxy in
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: spacing) {
+                                ForEach(Array(screenshots.enumerated()), id: \ .element.id) { idx, item in
+                                    AsyncImage(url: URL(string: item.url)) { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: imageWidth)
+                                            .cornerRadius(16)
+                                            .shadow(radius: selectedIndex == idx ? 4 : 0)
+                                            .scaleEffect(selectedIndex == idx ? 1.0 : 0.96)
+                                            .opacity(selectedIndex == idx ? 1.0 : 0.7)
+                                            .animation(.easeInOut, value: selectedIndex)
+                                    } placeholder: {
+                                        ProgressView()
+                                            .frame(width: imageWidth, height: imageWidth * 2)
+                                    }
+                                    .id(idx)
+                                    .onTapGesture {
+                                        withAnimation {
+                                            selectedIndex = idx
+                                            scrollProxy.scrollTo(idx, anchor: .center)
+                                        }
+                                    }
+                                }
+                            }
+                            .padding(.horizontal, sidePadding)
+                        }
+                        .onAppear {
+                            DispatchQueue.main.async {
+                                scrollProxy.scrollTo(selectedIndex, anchor: .center)
+                            }
+                        }
+                        .onChange(of: selectedIndex) { idx in
+                            withAnimation {
+                                scrollProxy.scrollTo(idx, anchor: .center)
+                            }
+                        }
+                        .frame(height: geometry.size.height * 0.8)
+                    }
+                    Spacer()
+                }
             }
         }
     }
