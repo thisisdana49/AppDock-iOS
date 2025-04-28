@@ -21,6 +21,7 @@ struct AppDetailView: View {
     @State private var showFullReleaseNotes = false
     @State private var showCarousel = false
     @State private var carouselStartIndex = 0
+    @State private var showFullDescription = false
     
     // 앱 상태 동기화: AppStateManager에서 최신 AppItem을 가져옴
     var syncedApp: AppItem? {
@@ -205,6 +206,24 @@ struct AppDetailView: View {
                             }
                         }
                         .frame(height: (UIScreen.main.bounds.width / 1.6) * 2)
+                        // 앱 설명 추가
+                        if let desc = detail.description, !desc.isEmpty {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(desc)
+                                    .font(.body)
+                                    .foregroundColor(.primary)
+                                    .padding(.horizontal)
+                                    .padding(.top, 8)
+                                    .lineLimit(showFullDescription ? nil : 3)
+                                if !showFullDescription && desc.count > 60 {
+                                    Button("더보기") {
+                                        showFullDescription = true
+                                    }
+                                    .font(.caption)
+                                    .padding(.horizontal)
+                                }
+                            }
+                        }
                     }
                 } else if let errorMessage = errorMessage {
                     Text("오류: \(errorMessage)")
