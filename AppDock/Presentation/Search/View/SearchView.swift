@@ -52,24 +52,38 @@ struct SearchView: View {
                         }
                 }
 
-                List {
-                    ForEach(viewModel.searchResults) { app in
-                        ZStack {
-                            NavigationLink(
-                                destination: AppDetailView(appId: app.id),
-                                tag: app.id,
-                                selection: $selectedAppId
-                            ) {
-                                EmptyView()
-                            }
-                            .opacity(0)
-                            AppSearchResultRowView(app: app) {
-                                viewModel.didTapDownloadButton(appID: app.id)
+                if viewModel.searchResults.isEmpty {
+                    if searchTerm.isEmpty {
+                        EmptyStateView(
+                            message: "원하는 앱을 검색해보세요",
+                            icon: "magnifyingglass"
+                        )
+                    } else {
+                        EmptyStateView(
+                            message: "검색 결과가 없습니다. 다른 키워드로 검색해보세요.",
+                            icon: "exclamationmark.circle"
+                        )
+                    }
+                } else {
+                    List {
+                        ForEach(viewModel.searchResults) { app in
+                            ZStack {
+                                NavigationLink(
+                                    destination: AppDetailView(appId: app.id),
+                                    tag: app.id,
+                                    selection: $selectedAppId
+                                ) {
+                                    EmptyView()
+                                }
+                                .opacity(0)
+                                AppSearchResultRowView(app: app) {
+                                    viewModel.didTapDownloadButton(appID: app.id)
+                                }
                             }
                         }
                     }
+                    .listStyle(.plain)
                 }
-                .listStyle(.plain)
             }
             .padding(.top)
             .navigationTitle("검색")
