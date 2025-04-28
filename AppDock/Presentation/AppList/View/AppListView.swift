@@ -11,8 +11,20 @@ import Combine
 struct AppListView: View {
     @EnvironmentObject var appState: AppStateManager
     @State private var searchText: String = ""
-    @State private var filteredApps: [AppItem] = []
     @FocusState private var isSearchFocused: Bool
+
+    // 필터링된 앱 목록을 computed property로 처리
+    private var displayApps: [AppItem] {
+        let keyword = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        if keyword.isEmpty {
+            return appState.downloadedApps
+        } else {
+            return appState.downloadedApps.filter {
+                $0.name.localizedCaseInsensitiveContains(keyword) ||
+                $0.developer.localizedCaseInsensitiveContains(keyword)
+            }
+        }
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -29,9 +41,6 @@ struct AppListView: View {
                     .foregroundColor(.gray)
                 TextField("게임, 앱, 스토리 등", text: $searchText)
                     .focused($isSearchFocused)
-                    .onChange(of: searchText) { _ in
-                        filterApps()
-                    }
                     .submitLabel(.search)
             }
             .padding(10)
@@ -41,7 +50,6 @@ struct AppListView: View {
             .padding(.top, 8)
 
             // 리스트 or EmptyView
-            let displayApps = searchText.isEmpty ? appState.downloadedApps : filteredApps
             if displayApps.isEmpty {
                 VStack {
                     Spacer()
@@ -61,7 +69,6 @@ struct AppListView: View {
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button(role: .destructive) {
                                     appState.removeAppFromDownloadedList(appID: app.id)
-                                    filterApps()
                                 } label: {
                                     Label("삭제", systemImage: "trash")
                                 }
@@ -73,24 +80,6 @@ struct AppListView: View {
             }
         }
         .background(Color(.systemBackground))
-        .onAppear {
-            filterApps()
-        }
-        .onReceive(appState.$apps) { _ in
-            filterApps()
-        }
-    }
-
-    private func filterApps() {
-        let keyword = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-        if keyword.isEmpty {
-            filteredApps = appState.downloadedApps
-        } else {
-            filteredApps = appState.downloadedApps.filter {
-                $0.name.localizedCaseInsensitiveContains(keyword) ||
-                $0.developer.localizedCaseInsensitiveContains(keyword)
-            }
-        }
     }
 }
 
