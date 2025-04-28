@@ -16,14 +16,25 @@ struct SearchView: View {
         NavigationView {
             VStack(spacing: 20) {
                 HStack {
-                    TextField("앱 이름 검색", text: $searchTerm)
-                        .textFieldStyle(.roundedBorder)
-                    
-                    Button("검색") {
-                        viewModel.searchApps(term: searchTerm)
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.gray)
+                    TextField("게임, 앱, 스토리 등", text: $searchTerm)
+                        .foregroundColor(.primary)
+                        .disableAutocorrection(true)
+                        .foregroundColor(.secondary)
+                        .onSubmit {
+                            viewModel.searchApps(term: searchTerm)
+                        }
+                    Button(action: {
+                        // 음성 인식 기능 연결 (추후 구현)
+                    }) {
+                        Image(systemName: "mic.fill")
+                            .foregroundColor(.gray)
                     }
-                    .buttonStyle(.borderedProminent)
                 }
+                .padding(10)
+                .background(Color(.secondarySystemBackground))
+                .cornerRadius(12)
                 .padding(.horizontal)
 
                 if viewModel.isLoading {
@@ -57,6 +68,7 @@ struct SearchView: View {
                 .listStyle(.plain)
             }
             .padding(.top)
+            .navigationTitle("검색")
         }
     }
 }

@@ -22,7 +22,7 @@ struct AppDockApp: App {
 
                 AppListView()
                     .tabItem {
-                        Label("내 앱", systemImage: "square.stack")
+                        Label("앱", systemImage: "square.stack.3d.up.fill")
                     }
             }
             .environmentObject(appState)

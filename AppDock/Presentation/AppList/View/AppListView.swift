@@ -27,9 +27,24 @@ struct AppListView: View {
         NavigationView {
             VStack {
                 // Search Bar
-                TextField("앱 검색", text: $searchText)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.gray)
+                    TextField("게임, 앱, 스토리 등", text: $searchText)
+                        .foregroundColor(.primary)
+                        .disableAutocorrection(true)
+                        .foregroundColor(.secondary)
+                    Button(action: {
+                        // 음성 인식 기능 연결 (추후 구현)
+                    }) {
+                        Image(systemName: "mic.fill")
+                            .foregroundColor(.gray)
+                    }
+                }
+                .padding(10)
+                .background(Color(.secondarySystemBackground))
+                .cornerRadius(12)
+                .padding(.horizontal)
                 
                 if displayApps.isEmpty {
                     EmptyStateView(
@@ -52,7 +67,7 @@ struct AppListView: View {
                     .listStyle(.plain)
                 }
             }
-            .navigationTitle("다운로드한 앱")
+            .navigationTitle("앱")
         }
     }
 }
