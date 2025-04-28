@@ -35,6 +35,7 @@
 		3E929D322DBF760500C33558 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D2E2DBF760500C33558 /* EmptyStateView.swift */; };
 		3E929D342DBF7CCD00C33558 /* DownloadProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D332DBF7CCD00C33558 /* DownloadProgressCircleView.swift */; };
 		3E929D392DBFA8D200C33558 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D372DBFA8D200C33558 /* NetworkMonitor.swift */; };
+		3E929D3C2DBFAEF700C33558 /* TemporaryTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E929D3A2DBFAEF700C33558 /* TemporaryTabView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		3E929D2E2DBF760500C33558 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		3E929D332DBF7CCD00C33558 /* DownloadProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadProgressCircleView.swift; sourceTree = "<group>"; };
 		3E929D372DBFA8D200C33558 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		3E929D3A2DBFAEF700C33558 /* TemporaryTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryTabView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -406,6 +408,7 @@
 			isa = PBXGroup;
 			children = (
 				3E929D382DBFA8D200C33558 /* Utilities */,
+				3E929D3B2DBFAEF700C33558 /* Tab */,
 				3E929D2F2DBF760500C33558 /* UIComponent */,
 			);
 			path = Common;
@@ -417,6 +420,14 @@
 				3E929D372DBFA8D200C33558 /* NetworkMonitor.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		3E929D3B2DBFAEF700C33558 /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				3E929D3A2DBFAEF700C33558 /* TemporaryTabView.swift */,
+			);
+			path = Tab;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -493,6 +504,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E929D0F2DBCBAC800C33558 /* TempTestViewModel.swift in Sources */,
+				3E929D3C2DBFAEF700C33558 /* TemporaryTabView.swift in Sources */,
 				3E929CFF2DBBBAC200C33558 /* SearchViewModel.swift in Sources */,
 				3E929CF02DBB6D4500C33558 /* AppItem.swift in Sources */,
 				3E929D1B2DBE5D3B00C33558 /* AppListRowView.swift in Sources */,
