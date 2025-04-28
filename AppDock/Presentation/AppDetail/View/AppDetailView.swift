@@ -125,11 +125,12 @@ struct AppDetailView: View {
                     }
                     .padding(.horizontal)
                     
-                    Divider()
 
                     // 앱 정보 가로 스크롤
                     
                     let columnWidth = UIScreen.main.bounds.width / 3.33
+                    Divider()
+                        .padding(.horizontal)
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 0) {
                             InfoColumn(title: "버전", value: detail.version ?? "-")
@@ -147,11 +148,12 @@ struct AppDetailView: View {
                         .frame(width: columnWidth * 4)
                     }
                     .frame(width: columnWidth * 3 + columnWidth / 3, height: 40)
+                    Divider()
+                        .padding(.horizontal)
 
 
                     // 새로운 소식 (릴리즈 노트)
                     VStack(alignment: .leading, spacing: 8) {
-                        Divider()
                         Text("새로운 소식")
                             .font(.headline)
                         if let notes = detail.releaseNotes, !notes.isEmpty {
@@ -168,7 +170,6 @@ struct AppDetailView: View {
                             Text("릴리즈 노트가 없습니다.")
                                 .foregroundColor(.gray)
                         }
-                        Divider()
                     }
                     .padding(.horizontal)
 
@@ -200,8 +201,8 @@ struct AppDetailView: View {
                                         }
                                     }
                                 }
+                                .padding(.horizontal)
                             }
-                            .padding(.horizontal)
                         }
                         .frame(height: (UIScreen.main.bounds.width / 1.6) * 2)
                     }
