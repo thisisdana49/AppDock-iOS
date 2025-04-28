@@ -47,13 +47,14 @@ struct AppDetailView: View {
                             Text(detail.trackName)
                                 .font(.title2)
                                 .bold()
+                                .lineLimit(2)
+                                .truncationMode(.tail)
                             Text(detail.artistName)
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
-                        }
-                        Spacer()
-                        if let app = syncedApp {
-                            VStack {
+                                .lineLimit(2)
+                                .truncationMode(.tail)
+                            if let app = syncedApp {
                                 switch app.state {
                                 case .get:
                                     Button("받기") {
@@ -110,28 +111,42 @@ struct AppDetailView: View {
                                             .padding(.vertical, 10)
                                     }
                                 }
+                            } else {
+                                Button("받기") {}
+                                    .font(.subheadline.bold())
+                                    .foregroundColor(.blue)
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 10)
+                                    .background(Color(.systemGray6))
+                                    .clipShape(Capsule())
                             }
-                        } else {
-                            Button("받기") {}
-                                .font(.subheadline.bold())
-                                .foregroundColor(.blue)
-                                .padding(.horizontal, 20)
-                                .padding(.vertical, 10)
-                                .background(Color(.systemGray6))
-                                .clipShape(Capsule())
                         }
+                        Spacer()
                     }
+                    
+                    Divider()
 
                     // 앱 정보 가로 스크롤
+                    
+                    let columnWidth = UIScreen.main.bounds.width / 3.33
                     ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 24) {
+                        HStack(spacing: 0) {
                             InfoColumn(title: "버전", value: detail.version ?? "-")
+                                .frame(width: columnWidth)
+                            Divider()
                             InfoColumn(title: "연령", value: String(detail.averageUserRating ?? 0.0))
+                                .frame(width: columnWidth)
+                            Divider()
                             InfoColumn(title: "카테고리", value: detail.primaryGenreName ?? "-")
+                                .frame(width: columnWidth)
+                            Divider()
                             InfoColumn(title: "개발자", value: detail.sellerName ?? "-")
+                                .frame(width: columnWidth)
                         }
-                        .padding(.vertical, 8)
+                        .frame(width: columnWidth * 4)
                     }
+                    .frame(height: 40)
+                    .padding(.horizontal)
 
                     Divider()
 
@@ -226,11 +241,16 @@ struct InfoColumn: View {
     let value: String
     var body: some View {
         VStack {
-            Text(value)
-                .font(.headline)
             Text(title)
                 .font(.caption)
                 .foregroundColor(.gray)
+                .lineLimit(1)
+                .truncationMode(.tail)
+            Text(value)
+                .font(.headline)
+                .foregroundColor(.gray)
+                .lineLimit(1)
+                .truncationMode(.tail)
         }
         .frame(minWidth: 60)
     }
