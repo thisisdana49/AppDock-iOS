@@ -14,6 +14,7 @@ struct ScreenshotItem: Identifiable, Equatable {
 
 struct AppDetailView: View {
     let appId: String
+    @EnvironmentObject var appState: AppStateManager
     @State private var detail: SearchResultItem?
     @State private var isLoading = false
     @State private var errorMessage: String?
@@ -21,13 +22,18 @@ struct AppDetailView: View {
     @State private var showCarousel = false
     @State private var carouselStartIndex = 0
     
+    // 앱 상태 동기화: AppStateManager에서 최신 AppItem을 가져옴
+    var syncedApp: AppItem? {
+        appState.apps.first(where: { $0.id == appId })
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 if isLoading {
                     ProgressView()
                 } else if let detail = detail {
-                    // 앱 아이콘, 이름, 열기 버튼
+                    // 앱 아이콘, 이름, 열기/다운로드 버튼, 남은 시간
                     HStack(alignment: .center, spacing: 16) {
                         AsyncImage(url: URL(string: detail.artworkUrl100 ?? "")) { image in
                             image.resizable()
@@ -46,8 +52,22 @@ struct AppDetailView: View {
                                 .foregroundColor(.secondary)
                         }
                         Spacer()
-                        Button("열기") {}
-                            .buttonStyle(.borderedProminent)
+                        if let app = syncedApp {
+                            VStack {
+                                Button(app.state.labelText) {
+                                    AppStateManager.shared.transition(appID: app.id, action: .tapDownloadButton)
+                                }
+                                .buttonStyle(.borderedProminent)
+                                if app.state == .downloading || app.state == .paused {
+                                    Text("(\(Int(app.remainingTime))s)")
+                                        .font(.caption2)
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                        } else {
+                            Button("받기") {}
+                                .buttonStyle(.borderedProminent)
+                        }
                     }
 
                     // 앱 정보 가로 스크롤
