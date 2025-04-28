@@ -47,24 +47,32 @@ extension AppStateManager {
     func markBackgroundTimestamp() {
         let now = Date()
         UserDefaults.standard.set(now, forKey: backgroundTimestampKey)
+        print("⏱ Background 진입 시간 저장: \(now)")
     }
 
     func syncTimersOnResume() {
-        guard let savedTime = UserDefaults.standard.object(forKey: backgroundTimestampKey) as? Date else { return }
+        guard let savedTime = UserDefaults.standard.object(forKey: backgroundTimestampKey) as? Date else { 
+            print("⚠️ 저장된 Background 시간 없음")
+            return 
+        }
 
-        let elapsed = Date().timeIntervalSince(savedTime)
+        let elapsed = max(0, Date().timeIntervalSince(savedTime))
         print("📦 경과 시간: \(elapsed)초")
 
         for app in apps {
             guard app.state == .downloading else { continue }
+            print("🔄 앱 상태 동기화 - \(app.name)")
+            print("  ㄴ 현재 남은 시간: \(app.remainingTime)초")
 
-            let newRemaining = app.remainingTime - elapsed
+            let newRemaining = max(0, app.remainingTime - elapsed)
+            print("  ㄴ 보정된 남은 시간: \(newRemaining)초")
+
             if newRemaining <= 0 {
-                // 다운로드 완료
+                print("  ㄴ ✅ 다운로드 완료로 전환")
                 update(app.copyWith(state: .open, remainingTime: 0))
                 DownloadTimerManager.shared.cancelTimer(for: app.id)
             } else {
-                // 남은 시간 보정 및 타이머 재시작
+                print("  ㄴ ⏳ 남은 시간 보정 및 타이머 재시작")
                 update(app.copyWith(state: .downloading, remainingTime: newRemaining))
                 DownloadTimerManager.shared.startTimer(for: app.id)
             }
