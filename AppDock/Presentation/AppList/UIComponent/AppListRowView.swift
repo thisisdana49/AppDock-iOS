@@ -27,13 +27,65 @@ struct AppListRowView: View {
                 }
             }
             Spacer()
-            Text("열기")
-                .font(.subheadline)
-                .foregroundColor(.blue)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
-                .background(Color(.systemGray6))
-                .clipShape(Capsule())
+            Group {
+                switch app.state {
+                case .get:
+                    Button(action: { /* TODO: Implement download action */ }) {
+                        Text("받기")
+                            .font(.subheadline.bold())
+                            .foregroundColor(.blue)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
+                            .background(Color(.systemGray6))
+                            .clipShape(Capsule())
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                case .downloading:
+                    Button(action: { /* TODO: Implement pause action */ }) {
+                        DownloadProgressCircleView(
+                            progress: 1.0 - (app.remainingTime / 30.0),
+                            isPaused: false
+                        )
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                case .paused:
+                    Button(action: { /* TODO: Implement resume action */ }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "icloud.and.arrow.down")
+                            Text("재개")
+                        }
+                        .font(.subheadline.bold())
+                        .foregroundColor(.blue)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
+                        .background(Color(.systemGray6))
+                        .clipShape(Capsule())
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                case .open:
+                    Button(action: { /* TODO: Implement open action */ }) {
+                        Text("열기")
+                            .font(.subheadline.bold())
+                            .foregroundColor(.blue)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
+                            .background(Color(.systemGray6))
+                            .clipShape(Capsule())
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                case .retry:
+                    Button(action: { /* TODO: Implement retry action */ }) {
+                        Image(systemName: "icloud.and.arrow.down")
+                            .font(.system(size: 14, weight: .bold))
+                            .foregroundColor(.blue)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
+                            .background(Color(.systemGray6))
+                            .clipShape(Capsule())
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
+            }
         }
         .padding(.vertical, 4)
     }

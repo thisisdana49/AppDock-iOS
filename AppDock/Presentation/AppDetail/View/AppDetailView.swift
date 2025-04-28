@@ -54,19 +54,71 @@ struct AppDetailView: View {
                         Spacer()
                         if let app = syncedApp {
                             VStack {
-                                Button(app.state.labelText) {
-                                    AppStateManager.shared.transition(appID: app.id, action: .tapDownloadButton)
-                                }
-                                .buttonStyle(.borderedProminent)
-                                if app.state == .downloading || app.state == .paused {
-                                    Text("(\(Int(app.remainingTime))s)")
-                                        .font(.caption2)
-                                        .foregroundColor(.gray)
+                                switch app.state {
+                                case .get:
+                                    Button("받기") {
+                                        AppStateManager.shared.transition(appID: app.id, action: .tapDownloadButton)
+                                    }
+                                    .font(.subheadline.bold())
+                                    .foregroundColor(.blue)
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 10)
+                                    .background(Color(.systemGray6))
+                                    .clipShape(Capsule())
+                                case .downloading:
+                                    Button(action: {
+                                        AppStateManager.shared.transition(appID: app.id, action: .tapDownloadButton)
+                                    }) {
+                                        DownloadProgressCircleView(
+                                            progress: 1.0 - (app.remainingTime / 30.0),
+                                            isPaused: false
+                                        )
+                                    }
+                                case .paused:
+                                    Button(action: {
+                                        AppStateManager.shared.transition(appID: app.id, action: .tapDownloadButton)
+                                    }) {
+                                        HStack(spacing: 4) {
+                                            Image(systemName: "icloud.and.arrow.down")
+                                            Text("재개")
+                                        }
+                                        .font(.subheadline.bold())
+                                        .foregroundColor(.blue)
+                                        .padding(.horizontal, 20)
+                                        .padding(.vertical, 10)
+                                        .background(Color(.systemGray6))
+                                        .clipShape(Capsule())
+                                    }
+                                case .open:
+                                    Button("열기") {
+                                        AppStateManager.shared.transition(appID: app.id, action: .tapDownloadButton)
+                                    }
+                                    .font(.subheadline.bold())
+                                    .foregroundColor(.blue)
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 10)
+                                    .background(Color(.systemGray6))
+                                    .clipShape(Capsule())
+                                case .retry:
+                                    Button(action: {
+                                        AppStateManager.shared.transition(appID: app.id, action: .tapDownloadButton)
+                                    }) {
+                                        Image(systemName: "icloud.and.arrow.down")
+                                            .font(.subheadline.bold())
+                                            .foregroundColor(.blue)
+                                            .padding(.horizontal, 20)
+                                            .padding(.vertical, 10)
+                                    }
                                 }
                             }
                         } else {
                             Button("받기") {}
-                                .buttonStyle(.borderedProminent)
+                                .font(.subheadline.bold())
+                                .foregroundColor(.blue)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 10)
+                                .background(Color(.systemGray6))
+                                .clipShape(Capsule())
                         }
                     }
 

@@ -10,79 +10,54 @@ import Combine
 
 struct AppListView: View {
     @EnvironmentObject var appState: AppStateManager
-    @State private var searchText: String = ""
-    @FocusState private var isSearchFocused: Bool
-
-    // 필터링된 앱 목록을 computed property로 처리
+    @State private var searchText = ""
+    
     private var displayApps: [AppItem] {
-        let keyword = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-        if keyword.isEmpty {
+        if searchText.isEmpty {
             return appState.downloadedApps
         } else {
-            return appState.downloadedApps.filter {
-                $0.name.localizedCaseInsensitiveContains(keyword) ||
-                $0.developer.localizedCaseInsensitiveContains(keyword)
+            return appState.downloadedApps.filter { app in
+                app.name.localizedCaseInsensitiveContains(searchText) ||
+                app.sellerName.localizedCaseInsensitiveContains(searchText)
             }
         }
     }
-
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            // 타이틀
-            Text("앱")
-                .font(.largeTitle)
-                .bold()
-                .padding(.top, 16)
-                .padding(.horizontal)
-
-            // 검색바 (실시간 필터링)
-            HStack {
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(.gray)
-                TextField("게임, 앱, 스토리 등", text: $searchText)
-                    .focused($isSearchFocused)
-                    .submitLabel(.search)
-            }
-            .padding(10)
-            .background(Color(.systemGray6))
-            .cornerRadius(12)
-            .padding(.horizontal)
-            .padding(.top, 8)
-
-            // 리스트 or EmptyView
-            if displayApps.isEmpty {
-                VStack {
-                    Spacer()
-                    HStack{
-                        Spacer()
-                        Text("다운받은 앱이 없습니다.")
-                            .foregroundColor(.gray)
-                            .font(.body)
-                        Spacer()
-                    }
-                    Spacer()
-                }
-            } else {
-                List {
-                    ForEach(displayApps) { app in
-                        AppListRowView(app: app)
-                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                Button(role: .destructive) {
-                                    appState.removeAppFromDownloadedList(appID: app.id)
-                                } label: {
-                                    Label("삭제", systemImage: "trash")
+        NavigationView {
+            VStack {
+                // Search Bar
+                TextField("앱 검색", text: $searchText)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                
+                if displayApps.isEmpty {
+                    EmptyStateView(
+                        message: "다운로드한 앱이 없습니다.\n앱스토어에서 앱을 검색하고 다운로드해보세요.",
+                        icon: "square.and.arrow.down"
+                    )
+                } else {
+                    List {
+                        ForEach(displayApps) { app in
+                            AppListRowView(app: app)
+                                .swipeActions(edge: .trailing) {
+                                    Button(role: .destructive) {
+                                        appState.removeAppFromDownloadedList(appID: app.id)
+                                    } label: {
+                                        Label("삭제", systemImage: "trash")
+                                    }
                                 }
-                            }
+                        }
                     }
+                    .listStyle(.plain)
                 }
-                .listStyle(.plain)
-                .padding(.top, 8)
             }
+            .navigationTitle("다운로드한 앱")
         }
-        .background(Color(.systemBackground))
     }
 }
 
 #Preview {
     AppListView()
+        .environmentObject(AppStateManager.shared)
 }
