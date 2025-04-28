@@ -243,7 +243,13 @@ struct AppDetailView: View {
                 ScreenshotCarouselView(
                     screenshots: screenshots,
                     initialIndex: carouselStartIndex,
-                    isPresented: $showCarousel
+                    isPresented: $showCarousel,
+                    app: syncedApp,
+                    onDownload: {
+                        if let app = syncedApp {
+                            AppStateManager.shared.transition(appID: app.id, action: .tapDownloadButton)
+                        }
+                    }
                 )
             }
         }
