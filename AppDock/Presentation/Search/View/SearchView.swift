@@ -11,6 +11,7 @@ struct SearchView: View {
     @StateObject private var viewModel = SearchViewModel()
     @State private var searchTerm: String = ""
     @State private var selectedAppId: String?
+    @State private var isShowingErrorAlert: Bool = false
 
     var body: some View {
         NavigationView {
@@ -46,6 +47,9 @@ struct SearchView: View {
                     Text("오류 발생: \(errorMessage)")
                         .foregroundColor(.red)
                         .padding()
+                        .onAppear {
+                            isShowingErrorAlert = true
+                        }
                 }
 
                 List {
@@ -69,6 +73,15 @@ struct SearchView: View {
             }
             .padding(.top)
             .navigationTitle("검색")
+            .alert(isPresented: $isShowingErrorAlert) {
+                Alert(
+                    title: Text("오류"),
+                    message: Text(viewModel.errorMessage ?? "알 수 없는 오류가 발생했습니다."),
+                    dismissButton: .default(Text("확인")) {
+                        viewModel.errorMessage = nil
+                    }
+                )
+            }
         }
     }
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import Network
 
 final class SearchViewModel: ObservableObject {
     @Published var searchResults: [AppItem] = []
@@ -42,6 +43,14 @@ final class SearchViewModel: ObservableObject {
                     } else {
                         return result
                     }
+                }
+            }
+            .store(in: &cancellables)
+
+        NetworkMonitor.shared.$isConnected
+            .sink { [weak self] isConnected in
+                if !isConnected {
+                    self?.errorMessage = "네트워크 연결이 없습니다. 인터넷 상태를 확인해주세요."
                 }
             }
             .store(in: &cancellables)
