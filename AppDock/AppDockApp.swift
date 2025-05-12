@@ -14,28 +14,18 @@ struct AppDockApp: App {
 
     var body: some Scene {
         WindowGroup {
-            TabView {
-                SearchView()
-                    .tabItem {
-                        Label("검색", systemImage: "magnifyingglass")
+            ContentView()
+                .environmentObject(appState)
+                .onChange(of: scenePhase) { newPhase in
+                    switch newPhase {
+                    case .background:
+                        appState.markBackgroundTimestamp()
+                    case .active:
+                        appState.syncTimersOnResume()
+                    default:
+                        break
                     }
-
-                AppListView()
-                    .tabItem {
-                        Label("앱", systemImage: "square.stack.3d.up.fill")
-                    }
-            }
-            .environmentObject(appState)
-            .onChange(of: scenePhase) { newPhase in
-                switch newPhase {
-                case .background:
-                    appState.markBackgroundTimestamp()
-                case .active:
-                    appState.syncTimersOnResume()
-                default:
-                    break
                 }
-            }
         }
     }
 }

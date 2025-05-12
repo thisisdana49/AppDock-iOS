@@ -27,7 +27,7 @@ struct AppDetailView: View {
     var syncedApp: AppItem? {
         appState.apps.first(where: { $0.id == appId })
     }
-
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
@@ -43,7 +43,7 @@ struct AppDetailView: View {
                         }
                         .frame(width: 80, height: 80)
                         .clipShape(RoundedRectangle(cornerRadius: 18))
-
+                        
                         VStack(alignment: .leading, spacing: 4) {
                             Text(detail.trackName)
                                 .font(.title2)
@@ -113,20 +113,44 @@ struct AppDetailView: View {
                                     }
                                 }
                             } else {
-                                Button("받기") {}
-                                    .font(.subheadline.bold())
-                                    .foregroundColor(.blue)
-                                    .padding(.horizontal, 20)
-                                    .padding(.vertical, 10)
-                                    .background(Color(.systemGray6))
-                                    .clipShape(Capsule())
+                                Button("받기") {
+                                    let newApp = AppItem(
+                                        id: appId,
+                                        name: detail.trackName,
+                                        developer: detail.artistName,
+                                        iconURL: detail.artworkUrl100?.isEmpty == false ? URL(string: detail.artworkUrl100!) : (detail.artworkUrl512?.isEmpty == false ? URL(string: detail.artworkUrl512!) : nil),
+                                        screenshotURLs: (detail.screenshotUrls ?? []).compactMap { URL(string: $0) },
+                                        description: detail.description ?? "",
+                                        minimumOSVersion: detail.minimumOsVersion ?? "",
+                                        sellerName: detail.sellerName ?? "",
+                                        primaryGenreName: detail.primaryGenreName ?? "",
+                                        genres: detail.genres ?? [],
+                                        version: detail.version ?? "",
+                                        releaseNotes: detail.releaseNotes,
+                                        trackViewUrl: detail.trackViewUrl.flatMap { URL(string: $0) },
+                                        price: detail.price ?? 0,
+                                        formattedPrice: detail.formattedPrice,
+                                        averageUserRating: detail.averageUserRating,
+                                        contentAdvisoryRating: detail.contentAdvisoryRating,
+                                        state: .get,
+                                        remainingTime: 30
+                                    )
+                                    appState.add(newApp)
+                                    AppStateManager.shared.transition(appID: appId, action: .tapDownloadButton)
+                                }
+                                .font(.subheadline.bold())
+                                .foregroundColor(.blue)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 10)
+                                .background(Color(.systemGray6))
+                                .clipShape(Capsule())
                             }
                         }
                         Spacer()
                     }
                     .padding(.horizontal)
                     
-
+                    
                     // 앱 정보 가로 스크롤
                     
                     let columnWidth = UIScreen.main.bounds.width / 3.33
@@ -151,8 +175,8 @@ struct AppDetailView: View {
                     .frame(width: columnWidth * 3 + columnWidth / 3, height: 40)
                     Divider()
                         .padding(.horizontal)
-
-
+                    
+                    
                     // 새로운 소식 (릴리즈 노트)
                     VStack(alignment: .leading, spacing: 8) {
                         Text("새로운 소식")
@@ -173,8 +197,8 @@ struct AppDetailView: View {
                         }
                     }
                     .padding(.horizontal)
-
-
+                    
+                    
                     // 미리보기(스크린샷)
                     VStack(alignment: .leading, spacing: 8) {
                         Text("미리 보기")
@@ -254,7 +278,7 @@ struct AppDetailView: View {
             }
         }
     }
-
+    
     private func fetchDetail() async {
         isLoading = true
         errorMessage = nil

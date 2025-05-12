@@ -11,6 +11,7 @@ struct SearchView: View {
     @StateObject private var viewModel = SearchViewModel()
     @State private var searchTerm: String = ""
     @State private var selectedAppId: String?
+    @State private var isShowingErrorAlert: Bool = false
 
     var body: some View {
         NavigationView {
@@ -46,29 +47,55 @@ struct SearchView: View {
                     Text("오류 발생: \(errorMessage)")
                         .foregroundColor(.red)
                         .padding()
+                        .onAppear {
+                            isShowingErrorAlert = true
+                        }
                 }
 
-                List {
-                    ForEach(viewModel.searchResults) { app in
-                        ZStack {
-                            NavigationLink(
-                                destination: AppDetailView(appId: app.id),
-                                tag: app.id,
-                                selection: $selectedAppId
-                            ) {
-                                EmptyView()
-                            }
-                            .opacity(0)
-                            AppSearchResultRowView(app: app) {
-                                viewModel.didTapDownloadButton(appID: app.id)
+                if viewModel.searchResults.isEmpty {
+                    if searchTerm.isEmpty {
+                        EmptyStateView(
+                            message: "원하는 앱을 검색해보세요",
+                            icon: "magnifyingglass"
+                        )
+                    } else {
+                        EmptyStateView(
+                            message: "검색 결과가 없습니다. 다른 키워드로 검색해보세요.",
+                            icon: "exclamationmark.circle"
+                        )
+                    }
+                } else {
+                    List {
+                        ForEach(viewModel.searchResults) { app in
+                            ZStack {
+                                NavigationLink(
+                                    destination: AppDetailView(appId: app.id),
+                                    tag: app.id,
+                                    selection: $selectedAppId
+                                ) {
+                                    EmptyView()
+                                }
+                                .opacity(0)
+                                AppSearchResultRowView(app: app) {
+                                    viewModel.didTapDownloadButton(appID: app.id)
+                                }
                             }
                         }
                     }
+                    .listStyle(.plain)
                 }
-                .listStyle(.plain)
             }
             .padding(.top)
             .navigationTitle("검색")
+            .alert(isPresented: $isShowingErrorAlert) {
+                Alert(
+                    title: Text("오류"),
+                    message: Text(viewModel.errorMessage ?? "알 수 없는 오류가 발생했습니다."),
+                    dismissButton: .default(Text("확인")) {
+                        viewModel.errorMessage = nil
+                    }
+                )
+            }
         }
     }
 }

@@ -9,34 +9,34 @@ import SwiftUI
 import Combine
 
 struct ContentView: View {
-    @StateObject private var timerWrapper = TimerWrapper()
-
     var body: some View {
-        VStack(spacing: 20) {
-            Text("⏱ 남은 시간: \(Int(timerWrapper.remainingTime))초")
-                .font(.largeTitle)
-                .bold()
-
-            HStack(spacing: 20) {
-                Button("시작") {
-                    timerWrapper.start()
+        TabView {
+            TemporaryTabView(title: "투데이")
+                .tabItem {
+                    Image(systemName: "doc.text")
+                    Text("투데이")
                 }
-                Button("일시정지") {
-                    timerWrapper.pause()
+            TemporaryTabView(title: "게임")
+                .tabItem {
+                    Image(systemName: "rocket")
+                    Text("게임")
                 }
-                Button("재개") {
-                    timerWrapper.resume()
+            AppListView()
+                .tabItem {
+                    Image(systemName: "square.stack.3d.up")
+                    Text("앱")
                 }
-            }
-            .buttonStyle(.borderedProminent)
-
-            if timerWrapper.isCompleted {
-                Text("✅ 다운로드 완료!")
-                    .font(.title2)
-                    .foregroundColor(.green)
-            }
+            TemporaryTabView(title: "Arcade")
+                .tabItem {
+                    Image(systemName: "gamecontroller")
+                    Text("Arcade")
+                }
+            SearchView()
+                .tabItem {
+                    Image(systemName: "magnifyingglass")
+                    Text("검색")
+                }
         }
-        .padding()
     }
 }
 
