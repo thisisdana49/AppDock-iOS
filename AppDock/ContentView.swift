@@ -18,7 +18,7 @@ struct ContentView: View {
                 }
             TemporaryTabView(title: "게임")
                 .tabItem {
-                    Image(systemName: "rocket")
+                    Image(systemName: "gamecontroller.fill")
                     Text("게임")
                 }
             AppListView()
