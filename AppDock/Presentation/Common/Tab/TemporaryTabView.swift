@@ -8,7 +8,7 @@ struct TemporaryTabView: View {
             Text(title)
                 .font(.largeTitle)
                 .bold()
-            Text("\(title) 뷰를 준비중입니다.")
+            Text("\(title) 뷰를 준비 중입니다.")
                 .font(.title3)
                 .foregroundColor(.gray)
             Spacer()
